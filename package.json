@@ -1,0 +1,86 @@
+{
+  "name": "@rutan/akashic-template",
+  "version": "1.0.0",
+  "author": "ru_shalm <ru_shalm@hazimu.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "akashic-sandbox ./game",
+    "serve": "akashic serve --target-service nicolive ./game",
+    "build": "run-s lint type-check clean build:* scan",
+    "build:webpack": "cross-env NODE_ENV=production webpack",
+    "watch": "webpack -w",
+    "assets": "run-s assets:* scan",
+    "assets:mkdir": "mkdirp ./tmp && mkdirp src/assets && mkdirp game/assets/textures",
+    "assets:updateAssets": "node ./scripts/convertAssets.js",
+    "scan": "cd game && akashic scan asset",
+    "clean": "run-p clean:*",
+    "clean:script": "rimraf ./game/script/bundle.js",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src",
+    "format": "run-s format:*",
+    "format:eslint": "eslint --fix src",
+    "format:prettier": "prettier --write ./src",
+    "zip": "run-s build zip:*",
+    "zip:mkdir": "mkdirp _dist && mkdirp ./tmp && rimraf ./tmp/build",
+    "zip:export": "akashic export html --source ./game -o ./tmp/build --atsumaru --inject ./inject.html",
+    "zip:copy": "cpx './public/**/*' ./tmp/build",
+    "zip:deployment": "deployment-zip ./tmp/build",
+    "prepare": "husky install",
+    "precommit": "run-s precommit:* type-check",
+    "precommit:lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "scripts/**/*.{js,ts}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@akashic-extension/akashic-hover-plugin": "^3.1.0",
+    "@akashic-extension/resolve-player-info": "^1.1.1",
+    "@akashic/akashic-engine": "^3.2.1",
+    "core-js": "^3.19.1",
+    "eventmit": "^1.1.0"
+  },
+  "devDependencies": {
+    "@akashic/akashic-cli": "^2.12.0",
+    "@akashic/akashic-sandbox": "^0.17.35",
+    "@atsumaru/api-types": "atsumaru/api-types",
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "@rutan/deployment-zip": "^0.1.0",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "babel-loader": "^8.2.3",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "cpx": "^1.5.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.1.0",
+    "git-rev-sync": "^3.0.1",
+    "glob": "^7.2.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "mkdirp": "^1.0.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1",
+    "raw-loader": "^4.0.2",
+    "rimraf": "^3.0.2",
+    "terser-webpack-plugin": "^5.2.4",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4",
+    "webpack": "^5.61.0",
+    "webpack-cli": "^4.9.1",
+    "yaml-loader": "^0.6.0"
+  },
+  "resolutions": {
+    "@akashic/playlog-client": "file:./vendor/playlog-client",
+    "@akashic/akashic-gameview-web": "file:./vendor/akashic-gameview-web"
+  }
+}

@@ -1,0 +1,31 @@
+<script>
+  window.Toripota = window.Toripota || {};
+  window.Toripota.isWeb = true;
+
+  // iOS 13 bug
+  // @see https://torigoya.hatenadiary.jp/entry/tanomuzo-apple
+  if (window.gLocalAssetContainer && window.gLocalAssetContainer['game.json']) {
+    window.gLocalAssetContainer['game.json'] = window.gLocalAssetContainer['game.json'].replace(
+      /untainted%22: true/g,
+      'untainted%22: false'
+    );
+  }
+</script>
+<style>
+  body {
+    background: #000;
+    color: #fff;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', meiryo, sans-serif;
+  }
+
+  .comment_box {
+    font-family: 'MS PGothic', 'IPAMonaPGothic', Arial, 'Menlo', sans-serif;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .comment_box.toripota-opacity {
+    opacity: 0.4;
+  }
+</style>
