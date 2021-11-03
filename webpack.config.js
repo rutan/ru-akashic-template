@@ -49,6 +49,9 @@ module.exports = {
   devtool: isProduction ? false : 'eval-cheap-module-source-map',
   resolve: {
     extensions: ['.ts', '.js'],
+    alias: {
+      '@': paths.src
+    }
   },
   module: {
     rules: [

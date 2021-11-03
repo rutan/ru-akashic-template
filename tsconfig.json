@@ -12,7 +12,11 @@
     "moduleResolution": "node",
     "noEmit": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*"],
   "files": ["node_modules/@akashic/akashic-engine/index.runtime.d.ts"]

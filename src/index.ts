@@ -1,5 +1,5 @@
-import { isLocalHtml, isMultiPlay } from './libs/environments';
-import { config } from './config';
+import { isLocalHtml, isMultiPlay } from '@/libs/environments';
+import { config } from '@/config';
 import { initializePlugin } from './initializePlugin';
 import { launch } from './launch';
 

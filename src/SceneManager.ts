@@ -1,5 +1,5 @@
-import { SampleScene } from './modules/sample';
-import { BaseScene, SceneEvent } from './modules/_share';
+import { BaseScene, SceneEvent } from '@/modules/_share';
+import { SampleScene } from '@/modules/sample';
 
 class SceneManagerClass {
   /**

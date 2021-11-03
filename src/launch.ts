@@ -1,4 +1,4 @@
-import { isDevelopment } from './libs/environments';
+import { isDevelopment } from '@/libs/environments';
 import { SceneManager } from './SceneManager';
 
 export interface LaunchParameter {

@@ -1,5 +1,5 @@
-import { splitEventmit, SplitEventmitter } from '../../../libs/event';
-import { SceneEvent } from '.';
+import { splitEventmit, SplitEventmitter } from '@/libs/event';
+import { SceneEvent } from './SceneEvent';
 
 export class BaseScene extends g.Scene {
   private _isReady: boolean;

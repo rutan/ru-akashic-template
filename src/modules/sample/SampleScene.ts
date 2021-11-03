@@ -1,5 +1,5 @@
-import { assetsSample1, assetsSample2, createWithAsset } from '../../assets';
-import { BaseScene } from '../_share';
+import { assetsSample1, assetsSample2, createWithAsset } from '@/assets';
+import { BaseScene } from '@/modules/_share';
 
 export class SampleScene extends BaseScene {
   create() {
