@@ -1545,6 +1545,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@rutan/akashic-right-click-plugin@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@rutan/akashic-right-click-plugin/-/akashic-right-click-plugin-0.1.1.tgz#a03d3d3226d7f3d01b89f0549568e3e416ed899b"
+  integrity sha512-ACmYPJY4L+YTmYUNOZkrc4c2WPUfVnNf256HAiSwFQQ4MShfHgsJB7OYhkiVhfCQePMyXZJ9Wi021PYfNGHQ3g==
+  dependencies:
+    "@akashic/akashic-engine" "~3.0.0"
+
 "@rutan/deployment-zip@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@rutan/deployment-zip/-/deployment-zip-0.1.0.tgz#9987a7bfb7f56b0cf339d8b47e956276248bd33e"

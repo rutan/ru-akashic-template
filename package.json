@@ -43,6 +43,7 @@
     "@akashic-extension/akashic-hover-plugin": "^3.1.0",
     "@akashic-extension/resolve-player-info": "^1.1.1",
     "@akashic/akashic-engine": "^3.2.1",
+    "@rutan/akashic-right-click-plugin": "^0.1.1",
     "core-js": "^3.19.1",
     "eventmit": "^1.1.0"
   },

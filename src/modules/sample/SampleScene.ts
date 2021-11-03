@@ -1,5 +1,6 @@
 import { assetsSample1, assetsSample2, createWithAsset } from '@/assets';
 import { BaseScene } from '@/modules/_share';
+import { asRightClickable } from '@rutan/akashic-right-click-plugin';
 
 export class SampleScene extends BaseScene {
   getAtsumaruCommentSceneName() {
@@ -18,6 +19,9 @@ export class SampleScene extends BaseScene {
       touchable: true,
     });
     this.append(sprite2);
+    asRightClickable(sprite2).rightClickDown.add(() => {
+      console.log('rightClick');
+    });
 
     sprite2.onPointUp.add(() => {
       // 次のシーンへ移動
