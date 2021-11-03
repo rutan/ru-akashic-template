@@ -2,6 +2,10 @@ import { assetsSample1, assetsSample2, createWithAsset } from '@/assets';
 import { BaseScene } from '@/modules/_share';
 
 export class SampleScene extends BaseScene {
+  getAtsumaruCommentSceneName() {
+    return 'Sample';
+  }
+
   create() {
     const sprite1 = createWithAsset(this, g.Sprite, assetsSample1, 'a', {
       x: 100,

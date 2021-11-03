@@ -1,6 +1,9 @@
 import { splitEventmit, SplitEventmitter } from '@/libs/event';
 import { SceneEvent } from './SceneEvent';
 
+/**
+ * すべてのシーンの基底クラス
+ */
 export class BaseScene extends g.Scene {
   private _isReady: boolean;
   protected _emitter: SplitEventmitter<SceneEvent>;
@@ -13,8 +16,16 @@ export class BaseScene extends g.Scene {
     this.onMessage.add(this.registerHandleMessage.bind(this));
     this.onLoad.addOnce(() => {
       this.create();
+      this.setupAtsumaruComment();
       this.onUpdate.add(this._updateFrameBase.bind(this));
     });
+  }
+
+  /**
+   * アツマールにおけるコメントシーン名を取得
+   */
+  getAtsumaruCommentSceneName(): string {
+    return '';
   }
 
   /**
@@ -58,6 +69,10 @@ export class BaseScene extends g.Scene {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   registerHandleMessage(_message: g.MessageEvent) {}
 
+  /**
+   * 毎フレーム呼び出し処理
+   * @private
+   */
   private _updateFrameBase() {
     if (this._isReady) {
       this._isReady = true;
@@ -65,5 +80,19 @@ export class BaseScene extends g.Scene {
     }
 
     this.updateFrame();
+  }
+
+  /**
+   * アツマールコメントの設定
+   * @private
+   */
+  private setupAtsumaruComment() {
+    if (typeof window === 'undefined') return;
+    if (!window.RPGAtsumaru) return;
+
+    const name = this.getAtsumaruCommentSceneName();
+    if (!name) return;
+
+    window.RPGAtsumaru.comment.changeScene(name);
   }
 }
