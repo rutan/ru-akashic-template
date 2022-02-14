@@ -1,4 +1,5 @@
 import { StorybookConfig } from '@storybook/core-common';
+
 const baseConfig = require('../webpack.config');
 
 module.exports = <StorybookConfig>{
@@ -17,12 +18,12 @@ module.exports = <StorybookConfig>{
         controls: true,
         docs: true,
         viewport: false,
-        toolbars: false,
-      },
+        toolbars: false
+      }
     },
     '@storybook/addon-actions'
   ],
   core: {
-    builder: 'webpack5',
-  },
+    builder: 'webpack5'
+  }
 };

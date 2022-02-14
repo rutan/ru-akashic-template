@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const git = require('git-rev-sync');
 const webpack = require('webpack');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const git = require('git-rev-sync');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 const paths = (() => {
@@ -59,20 +60,10 @@ module.exports = {
         test: /\.(js|ts)$/,
         include: paths.src,
         use: {
-          loader: 'babel-loader',
+          loader: 'esbuild-loader',
           options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    safari: '10',
-                  },
-                },
-              ],
-              '@babel/preset-typescript',
-            ],
-            plugins: ['@babel/plugin-proposal-class-properties'],
+            loader: 'ts',
+            target: 'es2015'
           },
         },
       },
@@ -86,6 +77,7 @@ module.exports = {
   },
   plugins: [
     new CaseSensitivePathsPlugin(),
+    new ForkTsCheckerWebpackPlugin(),
     new webpack.DefinePlugin(defineList),
     new webpack.BannerPlugin({
       banner: header,
