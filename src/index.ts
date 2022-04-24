@@ -1,9 +1,11 @@
 import { config } from '@/config';
-import { isAtsumaruSoloPlay, isLocalPlay, isSandbox } from '@/libs';
+import { isAtsumaruSoloPlay, isDevelopment, isLocalPlay, isSandbox } from '@/libs';
 import { initializePlugin } from './initializePlugin';
-import { launch } from './launch';
+import { launch, LaunchParameter } from './launch';
+import { SaveManager } from '@/modules/_share/managers/SaveManager';
 
 export function main(_params: g.GameMainParameterObject) {
+  SaveManager.setGameKey(config.storage.prefix);
   initializePlugin();
 
   if (isSandbox()) {
@@ -43,16 +45,14 @@ export function main(_params: g.GameMainParameterObject) {
  * 1人プレイモードとして即時起動する
  */
 function initForSingle() {
-  launch({
-    mode: 'single',
-  });
+  start({ mode: 'single' });
 }
 
 /**
  * マルチプレイモードとして即時起動する
  */
 function initForMulti() {
-  launch({
+  start({
     mode: 'multi',
   });
 }
@@ -67,9 +67,30 @@ function initForListenSessionParameter() {
     if (!msg.data) return;
     if (msg.data.type !== 'start') return;
 
-    launch(msg.data.parameters || {});
+    start(msg.data.parameters || {});
   });
   g.game.pushScene(scene);
+}
+
+/**
+ * ゲームを開始する
+ * @param params
+ */
+function start(params: LaunchParameter) {
+  if (isDevelopment()) console.log('launchParameter', params);
+
+  if (isLocalPlay()) {
+    // ローカル起動の場合はセーブデータを読み込む
+    const scene = new g.Scene({ game: g.game });
+    SaveManager.load(scene, () => {
+      if (isDevelopment()) console.log('SaveManager', SaveManager.items);
+      g.game.scenes.pop();
+      launch(params);
+    });
+    g.game.scenes.push(scene);
+  } else {
+    launch(params);
+  }
 }
 
 /**

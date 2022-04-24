@@ -1,4 +1,3 @@
-import { isDevelopment } from '@/libs';
 import { SceneManager } from './SceneManager';
 
 export interface LaunchParameter {
@@ -10,8 +9,6 @@ export interface LaunchParameter {
 /**
  * ゲーム起動時に呼び出される関数
  */
-export function launch(params: LaunchParameter) {
-  if (isDevelopment()) console.log(params);
-
+export function launch(_params: LaunchParameter) {
   SceneManager.changeScene('title');
 }
