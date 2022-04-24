@@ -17,14 +17,7 @@ export function isDevelopment() {
  * @note アツマール上での1人プレイもローカル実行として扱う
  */
 export function isLocalPlay() {
-  return isSandbox() || isLocalHtml();
-}
-
-/**
- * ニコ生/アツマールのマルチプレイ上での起動であるか？
- */
-export function isMultiPlay() {
-  return !isLocalPlay();
+  return isSandbox() || isAtsumaruSoloPlay() || isLocalHtml();
 }
 
 /**
@@ -37,6 +30,7 @@ export function isAtsumaruSoloPlay() {
 
 /**
  * akashic-sandbox上での実行であるか？
+ * @note あくまで簡易的なチェックのため将来的に動かなくなるかも
  */
 export function isSandbox() {
   if (typeof document === 'undefined') return false;

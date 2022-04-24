@@ -1,4 +1,7 @@
 interface Config {
+  game: {
+    launch_mode: 'ranking' | 'multi';
+  };
   storage: {
     prefix: string;
   };
