@@ -74,7 +74,7 @@ export class BaseScene extends g.Scene {
    * @private
    */
   private _updateFrameBase() {
-    if (this._isReady) {
+    if (!this._isReady) {
       this._isReady = true;
       this.start();
     }
