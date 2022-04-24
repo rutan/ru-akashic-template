@@ -7,7 +7,7 @@
   "scripts": {
     "start": "akashic-sandbox ./game",
     "serve": "akashic serve --target-service nicolive ./game",
-    "build": "run-s lint type-check clean build:* scan",
+    "build": "run-s lint clean build:* scan",
     "build:webpack": "cross-env NODE_ENV=production webpack",
     "watch": "webpack -w",
     "assets": "run-s assets:* scan",
@@ -17,8 +17,10 @@
     "clean": "run-p clean:*",
     "clean:script": "rimraf ./game/script/bundle.js",
     "storybook": "start-storybook -p 6006 -s ./game",
-    "type-check": "tsc --noEmit",
-    "lint": "eslint src",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint src",
+    "lint:prettier": "prettier -c ./src",
+    "lint:tsc": "tsc --noEmit",
     "format": "run-s format:*",
     "format:eslint": "eslint --fix src",
     "format:prettier": "prettier --write ./src",
@@ -28,7 +30,7 @@
     "zip:copy": "cpx './public/**/*' ./tmp/build",
     "zip:deployment": "deployment-zip ./tmp/build",
     "prepare": "husky install",
-    "precommit": "run-s format type-check"
+    "precommit": "npm run lint"
   },
   "dependencies": {
     "@akashic-extension/akashic-hover-plugin": "^3.1.1",
