@@ -5,9 +5,10 @@ import { launch } from './launch';
 
 export function main(_params: g.GameMainParameterObject) {
   initializePlugin();
-  setupAtsumaruAPI();
 
   if (isSandbox()) {
+    setupSandbox();
+
     // akashic-sandbox の場合はモード設定がランキングの場合はセッションパラメータ待機、
     // それ以外の場合は1人プレイモードとして起動する
     if (config.game.launch_mode === 'ranking') {
@@ -16,6 +17,8 @@ export function main(_params: g.GameMainParameterObject) {
       initForSingle();
     }
   } else if (isLocalPlay()) {
+    setupAtsumaruAPI();
+
     // アツマール1人プレイなどのローカルHTML起動の場合は1人プレイモードとして起動する
     initForSingle();
   } else {
@@ -67,6 +70,38 @@ function initForListenSessionParameter() {
     launch(msg.data.parameters || {});
   });
   g.game.pushScene(scene);
+}
+
+/**
+ * akashic-sandbox の設定
+ * 主にスマートフォンからのデバッグのための設定を仕込む
+ * akashic-sandbox 以外の環境ではスキップする
+ */
+function setupSandbox() {
+  if (!isSandbox()) return;
+  const container = document.getElementById('container');
+  if (!container) return;
+
+  // viewportの設定
+  const meta = document.createElement('meta');
+  meta.name = 'viewport';
+  meta.content = 'width=device-width,initial-scale=1';
+  document.querySelector('head')?.append(meta);
+
+  // resize設定
+  container.style.position = 'absolute';
+  const resizeFunc = () => {
+    const rate = Math.min(window.screen.width / g.game.width, 1);
+    container.style.transform = `scale(${rate})`;
+    container.style.transformOrigin = 'left top';
+    if (rate < 1.0) {
+      container.style.top = `30px`;
+    } else {
+      container.style.top = '0';
+    }
+  };
+  resizeFunc();
+  window.addEventListener('resize', resizeFunc);
 }
 
 /**
