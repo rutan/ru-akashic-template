@@ -42,7 +42,7 @@ export function assetInfo<T extends AssetJson>(assets: T, key: keyof T['frames']
   const name = assets.name;
   const path = assets.path;
   const frame = assets.frames[key as string];
-  if (!frame) throw `invalid asset name: ${key}`;
+  if (!frame) throw `invalid asset name: ${String(key)}`;
   return { name, path, frame };
 }
 
