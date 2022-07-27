@@ -25,4 +25,4 @@ interface Config {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-export const config: Config = require('./config.yaml');
+export const config: Config = require('./config.yaml').default;

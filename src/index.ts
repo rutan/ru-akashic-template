@@ -1,8 +1,8 @@
 import { config } from '@/config';
 import { isAtsumaruSoloPlay, isDevelopment, isLocalPlay, isSandbox } from '@/libs';
+import { SaveManager } from '@/modules/_share/managers/SaveManager';
 import { initializePlugin } from './initializePlugin';
 import { launch, LaunchParameter } from './launch';
-import { SaveManager } from '@/modules/_share/managers/SaveManager';
 
 export function main(_params: g.GameMainParameterObject) {
   SaveManager.setGameKey(config.storage.prefix);

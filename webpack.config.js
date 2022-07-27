@@ -1,10 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const git = require('git-rev-sync');
 const webpack = require('webpack');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 const paths = (() => {
   const root = __dirname;
@@ -16,18 +15,10 @@ const paths = (() => {
   };
 })();
 
-const gitCommitId = (() => {
-  try {
-    return git.short();
-  } catch (_) {
-    return '-';
-  }
-})();
-
 const isProduction = process.env.NODE_ENV === 'production';
 const packageJSON = JSON.parse(fs.readFileSync(path.join(paths.root, 'package.json')));
 const header = [
-  `/*! ${packageJSON.name} v.${packageJSON.version}(${isProduction ? gitCommitId : 'development'}) */`,
+  `/*! ${packageJSON.name} v.${packageJSON.version} */`,
 ].join('\n');
 
 const defineList = {
@@ -68,7 +59,6 @@ module.exports = {
         },
       },
       {
-        type: 'json',
         test: /\.ya?ml$/,
         include: paths.src,
         use: 'yaml-loader',
@@ -87,8 +77,8 @@ module.exports = {
   ].filter(Boolean),
   optimization: {
     minimizer: [
-      new TerserPlugin({
-        extractComments: false,
+      new ESBuildMinifyPlugin({
+        target: 'es2015'
       }),
     ],
   },

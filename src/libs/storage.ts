@@ -1,5 +1,5 @@
-import { isAtsumaruSoloPlay, isLocalPlay } from './environments';
 import { StorageItem } from '@atsumaru/api-types';
+import { isAtsumaruSoloPlay, isLocalPlay } from './environments';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SaveItems = Map<string, any>;
