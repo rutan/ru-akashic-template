@@ -35,3 +35,13 @@ atsumaru:
     gift:
       text: 'ギフトありがとうございます'
       image: 'atsumaru/thanks.png'
+  # ニコニ広告API設定
+  nicoAdSetting:
+    nicoAdBar:
+      title: 'ニコニ広告'
+      backgroundColor: 'rgba(255, 229, 0, .8)'
+      textColor: '#000'
+      scrollSpeed: 100
+      scrollTimeMax: 10
+      itemFormat: '%1 さん（%2 pt）'
+      message: '広告ありがとうございます！'

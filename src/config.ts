@@ -21,6 +21,17 @@ interface Config {
         image: string;
       };
     };
+    nicoAdSetting?: {
+      nicoAdBar?: {
+        title: string;
+        backgroundColor: string;
+        textColor: string;
+        scrollSpeed: number;
+        scrollTimeMax: number;
+        itemFormat: string;
+        message: string;
+      };
+    };
   };
 }
 

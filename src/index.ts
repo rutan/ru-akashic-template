@@ -1,5 +1,5 @@
 import { config } from '@/config';
-import { isAtsumaruSoloPlay, isDevelopment, isLocalPlay, isSandbox } from '@/libs';
+import { getAtsumaruApi, isAtsumaruSoloPlay, isDevelopment, isLocalPlay, isSandbox, showNicoAdBar } from '@/libs';
 import { SaveManager } from '@/modules/_share/managers/SaveManager';
 import { initializePlugin } from './initializePlugin';
 import { launch, LaunchParameter } from './launch';
@@ -132,12 +132,13 @@ function setupSandbox() {
 function setupAtsumaruAPI() {
   if (!isAtsumaruSoloPlay()) return;
 
-  const atsumaruAPI = window.RPGAtsumaru;
+  const atsumaruAPI = getAtsumaruApi();
   if (!atsumaruAPI) return;
   if (!atsumaruAPI.popups) return;
   if (!atsumaruAPI.popups.setThanksSettings) return;
 
-  const thanksSetting = config.atsumaru.thanksSetting;
+  const { thanksSetting, nicoAdSetting } = config.atsumaru;
+
   if (thanksSetting) {
     atsumaruAPI.popups.setThanksSettings({
       autoThanks: thanksSetting.autoThanks,
@@ -149,4 +150,6 @@ function setupAtsumaruAPI() {
       giftThanksImage: thanksSetting.gift.image,
     });
   }
+
+  if (nicoAdSetting && nicoAdSetting.nicoAdBar) showNicoAdBar(nicoAdSetting.nicoAdBar);
 }

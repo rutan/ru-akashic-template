@@ -45,7 +45,7 @@
     "@akashic/akashic-cli": "^2.15.71",
     "@akashic/akashic-engine-standalone": "^3.4.3",
     "@akashic/akashic-sandbox": "^0.17.51",
-    "@atsumaru/api-types": "atsumaru/api-types",
+    "@atsumaru/api-types": "atsumaru/api-types#8284b166fd8cc07aec335adac5028103bdf3c3f0",
     "@kudohamu/storybook-akashic": "^6.3.13",
     "@rutan/deployment-zip": "^0.1.0",
     "@storybook/addon-actions": "^6.5.9",

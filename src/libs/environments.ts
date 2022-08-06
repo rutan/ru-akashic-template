@@ -52,3 +52,18 @@ export function isAtsumaruMultiClient() {
   // resolve-player-info の力でアツマールの場合は生えてるはず
   return !!(g.game.external && g.game.external.atsumaru);
 }
+
+/**
+ * 実行中の環境がアツマール（1人プレイモード）であるか？
+ */
+export function isAtsumaru() {
+  return !!getAtsumaruApi();
+}
+
+/**
+ * アツマールAPIの取得
+ */
+export function getAtsumaruApi() {
+  if (typeof window === 'undefined') return null;
+  return window.RPGAtsumaru || null;
+}

@@ -428,7 +428,7 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@atsumaru/api-types@atsumaru/api-types":
+"@atsumaru/api-types@atsumaru/api-types", "@atsumaru/api-types@atsumaru/api-types#8284b166fd8cc07aec335adac5028103bdf3c3f0":
   version "1.1.0"
   resolved "https://codeload.github.com/atsumaru/api-types/tar.gz/8284b166fd8cc07aec335adac5028103bdf3c3f0"
 
