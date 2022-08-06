@@ -1,8 +1,10 @@
+import { NODE_ENV } from '$constants';
+
 /**
  * 本番モードであるか？
  */
 export function isProduction() {
-  return process.env.NODE_ENV === 'production';
+  return NODE_ENV === 'production';
 }
 
 /**
@@ -51,13 +53,6 @@ export function isLocalHtml() {
 export function isAtsumaruMultiClient() {
   // resolve-player-info の力でアツマールの場合は生えてるはず
   return !!(g.game.external && g.game.external.atsumaru);
-}
-
-/**
- * 実行中の環境がアツマール（1人プレイモード）であるか？
- */
-export function isAtsumaru() {
-  return !!getAtsumaruApi();
 }
 
 /**

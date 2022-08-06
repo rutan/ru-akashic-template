@@ -1,5 +1,5 @@
 import { NicoadHistories } from '@atsumaru/api-types';
-import { getAtsumaruApi } from './environments';
+import { getAtsumaruApi, isAtsumaruSoloPlay } from './environments';
 
 /**
  * ニコニ広告情報の取得
@@ -202,7 +202,7 @@ export interface NicoAdBarParameter extends NicoAdBarViewerParameter {
  * ニコニ広告バーの表示を開始
  */
 export function showNicoAdBar(options: NicoAdBarParameter) {
-  if (typeof window === 'undefined') return;
+  if (!isAtsumaruSoloPlay()) return;
 
   const viewer = new NicoAdBarViewer(options);
   document.body.append(viewer.element);
