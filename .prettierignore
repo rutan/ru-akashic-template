@@ -1,1 +1,9 @@
-/game/script/
+/_dist
+/node_modules
+/assets
+/game
+/public
+/tmp
+/.storybook
+
+*.md
