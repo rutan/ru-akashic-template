@@ -11,19 +11,40 @@
 
 ## ディレクトリ構成
 ```
-├ _dist/   … アツマールに投稿するzipファイルが出てくる場所
-├ assets/  … テクスチャ画像置き場（後述）
-├ game/    … ゲーム本体
-├ public/  … アツマールに投稿するzipに一緒に含めるファイル置き場
-├ scripts/ … ゲーム本体以外のコード
-├ src/     … ゲーム本体のコード
-│ ├ assets/   … テクスチャ画像を呼び出すためのコード
-│ ├ libs/     … ゲーム固有でない汎用処理のコード置き場
-│ └ modules/  … ゲーム固有のコード置き場
-└ vendor/  … ダミー用のパッケージ置き場（後述）
+├ _dist/        … アツマールに投稿するzipファイルが出てくる場所
+├ assets/       … テクスチャ画像置き場（後述）
+├ extensions/   … eslintなどのカスタムルール置き場
+├ game/         … ゲーム本体
+├ public/       … アツマールに投稿するzipに一緒に含めるファイル置き場
+├ scripts/      … ゲーム本体以外のコード
+├ src/          … ゲーム本体のコード
+│ ├ assets/    … テクスチャ画像を呼び出すためのコード
+│ ├ constants/ … 定数置き場
+│ ├ libs/      … ゲーム固有でない汎用処理のコード置き場
+│ └ modules/   … ゲーム固有のコード置き場
+│   └ _share/  … ゲーム全体で共有するコード置き場
+└ vendor/       … ダミー用のパッケージ置き場（後述）
 ```
 
 ## 各種あれこれ
+
+### modules内の依存関係について
+
+`src/modules` 内はシーンごとにディレクトリを作成することを想定しています。  
+ただし `src/modules/_share` のみ特別なディレクトリとして、全シーンで共有するコードを置くことができます。
+
+```
+▼ イメージ
+src/modules/_share   … 共有コード置き場
+src/modules/title    … タイトルシーンのコード
+src/modules/play     … プレイシーンのコード
+src/modules/result   … リザルトシーンのコード
+```
+
+原則として modules 内のコードは他のシーン用のコードを読み込んではいけません。
+例えば `src/modules/play` 内から `src/modules/title` 内のコードを import すると、 eslint で設定されたカスタムルールである `no-import-other-scene-modules` によってエラーとなります。
+
+複数のシーンにまたがって利用するコードは、必ず `src/modules/_share` に設置してください。
 
 ### テクスチャ画像について
 TexturePackerを利用した画像アセットをサポートしています。
@@ -63,6 +84,13 @@ scene.append(sprite);
 アツマールの [おれいポップアップ](https://atsumaru.github.io/api-references/thanks/) は `src/config.yaml` で設定できます。
 
 おれい用の画像を変更する場合は、 `public/atsumaru` 内の画像を差し替えたり追加したりしてください。
+
+### アツマールの「ニコニ広告」API
+
+アツマールの [ニコニ広告API](https://atsumaru.github.io/api-references/nicoad/) を利用して、アツマール上でのゲーム起動時に画面下部にニコニ広告をしてくれた方の名前が表示されます。  
+表示内容のカスタマイズは `src/config.yaml` で行うことができます。
+
+このニコニ広告表示は [Torigoya_NiconikoBar](https://torigoya-plugin.rutan.dev/service/niconikoBar/) をベースとしています。
 
 ## その他
 
