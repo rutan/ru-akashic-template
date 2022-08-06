@@ -1,4 +1,4 @@
-import { splitEventmit, SplitEventmitter } from '@/libs';
+import { splitEventmit, SplitEventmitter } from '$libs';
 import { SceneEvent } from './SceneEvent';
 
 /**

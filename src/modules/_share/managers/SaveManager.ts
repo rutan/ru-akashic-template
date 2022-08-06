@@ -1,4 +1,4 @@
-import { loadAllItems, SaveItems, saveItems } from '@/libs';
+import { loadAllItems, SaveItems, saveItems } from '$libs';
 
 /**
  * ローカルプレイ用のセーブ管理マネージャー

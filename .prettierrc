@@ -3,13 +3,13 @@
   "singleQuote": true,
   "importOrder": [
     "<THIRD_PARTY_MODULES>",
-    "^@.*$",
-    "types/.*",
-    "assets/.*",
-    "data/.*",
-    "libs/.*",
-    "modules/.*",
-    "^\\..*"
+    "\\$types",
+    "\\$constants",
+    "\\$assets",
+    "\\$data",
+    "\\$libs",
+    "\\$share",
+    "^[./]"
   ],
   "importOrderSeparation": false
 }

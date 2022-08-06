@@ -16,7 +16,12 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "$types": ["./src/types"],
+      "$constants": ["./src/constants"],
+      "$assets": ["./src/assets"],
+      "$libs": ["./src/libs"],
+      "$data": ["./src/data"],
+      "$share": ["./src/modules/_share"]
     }
   },
   "include": ["src/**/*"],

@@ -1,6 +1,6 @@
-import { config } from '@/config';
-import { getAtsumaruApi, isAtsumaruSoloPlay, isDevelopment, isLocalPlay, isSandbox, showNicoAdBar } from '@/libs';
-import { SaveManager } from '@/modules/_share/managers/SaveManager';
+import { getAtsumaruApi, isAtsumaruSoloPlay, isDevelopment, isLocalPlay, isSandbox, showNicoAdBar } from '$libs';
+import { SaveManager } from '$share';
+import { config } from './config';
 import { initializePlugin } from './initializePlugin';
 import { launch, LaunchParameter } from './launch';
 

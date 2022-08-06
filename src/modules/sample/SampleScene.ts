@@ -1,6 +1,6 @@
-import { assetsSample1, assetsSample2, createWithAsset } from '@/assets';
-import { BaseScene } from '@/modules/_share';
 import { asRightClickable } from '@rutan/akashic-right-click-plugin';
+import { assetsSample1, assetsSample2, createWithAsset } from '$assets';
+import { BaseScene } from '$share';
 
 export class SampleScene extends BaseScene {
   getAtsumaruCommentSceneName() {

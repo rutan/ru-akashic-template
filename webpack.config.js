@@ -3,7 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const { ESBuildMinifyPlugin } = require('esbuild-loader')
+const { ESBuildMinifyPlugin } = require('esbuild-loader');
 
 const paths = (() => {
   const root = __dirname;
@@ -17,9 +17,7 @@ const paths = (() => {
 
 const isProduction = process.env.NODE_ENV === 'production';
 const packageJSON = JSON.parse(fs.readFileSync(path.join(paths.root, 'package.json')));
-const header = [
-  `/*! ${packageJSON.name} v.${packageJSON.version} */`,
-].join('\n');
+const header = [`/*! ${packageJSON.name} v.${packageJSON.version} */`].join('\n');
 
 const defineList = {
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
@@ -42,8 +40,13 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      '@': paths.src
-    }
+      $types: path.join(paths.src, 'types'),
+      $constants: path.join(paths.src, 'constants'),
+      $assets: path.join(paths.src, 'assets'),
+      $libs: path.join(paths.src, 'libs'),
+      $data: path.join(paths.src, 'data'),
+      $share: path.join(paths.src, 'modules', '_share'),
+    },
   },
   module: {
     rules: [
@@ -54,7 +57,7 @@ module.exports = {
           loader: 'esbuild-loader',
           options: {
             loader: 'ts',
-            target: 'es2015'
+            target: 'es2015',
           },
         },
       },
@@ -78,7 +81,7 @@ module.exports = {
   optimization: {
     minimizer: [
       new ESBuildMinifyPlugin({
-        target: 'es2015'
+        target: 'es2015',
       }),
     ],
   },
