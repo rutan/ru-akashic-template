@@ -2,7 +2,7 @@
   "name": "@rutan/akashic-template",
   "version": "1.0.0",
   "author": "ru_shalm <ru_shalm@hazimu.com>",
-  "license": "MIT",
+  "license": "Unlicense",
   "private": true,
   "scripts": {
     "start": "akashic-sandbox ./game",
