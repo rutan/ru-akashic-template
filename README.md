@@ -6,6 +6,9 @@
 
 - node.js
 - yarn
+
+## あると便利なもの
+
 - [TexturePacker](https://www.codeandweb.com/texturepacker)
     - CLIツールを使えるようにしておくこと
 
