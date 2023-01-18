@@ -1,3 +1,6 @@
+const rulesDirPlugin = require('eslint-plugin-rulesdir');
+rulesDirPlugin.RULES_DIR = 'extensions/eslint';
+
 module.exports = {
   env: {
     browser: true,
@@ -9,9 +12,9 @@ module.exports = {
     ecmaVersion: 13,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'rulesdir'],
   rules: {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-    'no-import-other-scene-modules': ['error'],
+    'rulesdir/no-import-other-scene-modules': ['error'],
   },
 };
