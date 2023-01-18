@@ -6,6 +6,10 @@ module.exports = <StorybookConfig>{
   stories: ['../src/**/*.stories.@(js|ts)'],
   webpackFinal: async (config) => {
     config.module!.rules = baseConfig.module.rules.concat(config.module!.rules);
+    config.resolve!.alias = {
+      ...config.resolve!.alias,
+      ...baseConfig.resolve.alias,
+    };
 
     return config;
   },
