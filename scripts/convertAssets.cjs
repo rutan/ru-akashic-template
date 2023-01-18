@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
-const mkdirp = require('mkdirp');
+const { mkdirp } = require('mkdirp');
 const cpx = require('cpx2');
 const rimraf = require('rimraf');
 const { execSync } = require('child_process');

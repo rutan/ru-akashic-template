@@ -12,7 +12,7 @@
     "watch": "webpack -w",
     "assets": "run-s assets:* scan",
     "assets:mkdir": "mkdirp ./tmp && mkdirp src/assets && mkdirp game/assets/textures",
-    "assets:updateAssets": "node ./scripts/convertAssets.js",
+    "assets:updateAssets": "node ./scripts/convertAssets.cjs",
     "scan": "cd game && akashic scan asset",
     "clean": "run-p clean:*",
     "clean:script": "rimraf ./game/script/bundle.js",
