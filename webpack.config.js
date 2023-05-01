@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { EsbuildPlugin } = require('esbuild-loader');
@@ -18,6 +19,7 @@ const paths = (() => {
 const isProduction = process.env.NODE_ENV === 'production';
 const packageJSON = JSON.parse(fs.readFileSync(path.join(paths.root, 'package.json')));
 const header = [`/*! ${packageJSON.name} v.${packageJSON.version} */`].join('\n');
+const isAnalyze = String(process.env.IS_ANALYZE || '0') !== '0';
 
 const defineList = {
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
@@ -77,6 +79,7 @@ module.exports = {
       raw: true,
       entryOnly: true,
     }),
+    isAnalyze ? new BundleAnalyzerPlugin() : null,
   ].filter(Boolean),
   optimization: {
     minimizer: [

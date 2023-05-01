@@ -24,8 +24,7 @@ module.exports = <StorybookConfig>{
         viewport: false,
         toolbars: false
       }
-    },
-    '@storybook/addon-actions'
+    }
   ],
   core: {
     builder: 'webpack5'
