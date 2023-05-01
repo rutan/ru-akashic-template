@@ -78,6 +78,10 @@
   },
   "resolutions": {
     "@akashic/playlog-client": "file:./vendor/playlog-client",
-    "@akashic/akashic-gameview-web": "file:./vendor/akashic-gameview-web"
+    "@akashic/akashic-gameview-web": "file:./vendor/akashic-gameview-web",
+    "glob-parent": "^6.0.2",
+    "trim": ">=0.0.3",
+    "trim-newlines": ">=3.0.1",
+    "vm2": "^3.9.17"
   }
 }
