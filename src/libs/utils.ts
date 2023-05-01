@@ -7,3 +7,7 @@ export function truthy<T>(n: T): n is Truthy<T> {
 export function nonNullable<T>(n: T): n is NonNullable<T> {
   return n !== null;
 }
+
+export function close<T>(data: T): T {
+  return JSON.parse(JSON.stringify(data));
+}

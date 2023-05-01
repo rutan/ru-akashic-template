@@ -16,16 +16,8 @@ export class BaseScene extends g.Scene {
     this.onMessage.add(this.registerHandleMessage.bind(this));
     this.onLoad.addOnce(() => {
       this.create();
-      this.setupAtsumaruComment();
       this.onUpdate.add(this._updateFrameBase.bind(this));
     });
-  }
-
-  /**
-   * アツマールにおけるコメントシーン名を取得
-   */
-  getAtsumaruCommentSceneName(): string {
-    return '';
   }
 
   /**
@@ -80,19 +72,5 @@ export class BaseScene extends g.Scene {
     }
 
     this.updateFrame();
-  }
-
-  /**
-   * アツマールコメントの設定
-   * @private
-   */
-  private setupAtsumaruComment() {
-    if (typeof window === 'undefined') return;
-    if (!window.RPGAtsumaru) return;
-
-    const name = this.getAtsumaruCommentSceneName();
-    if (!name) return;
-
-    window.RPGAtsumaru.comment.changeScene(name);
   }
 }

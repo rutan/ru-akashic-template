@@ -1,11 +1,11 @@
-import { getAtsumaruApi, isAtsumaruSoloPlay, isDevelopment, isLocalPlay, isSandbox, showNicoAdBar } from '$libs';
+import { isDevelopment, isLocalPlay, isSandbox } from '$libs';
 import { SaveManager } from '$share';
 import { config } from './config';
 import { initializePlugin } from './initializePlugin';
 import { launch, LaunchParameter } from './launch';
 
 export function main(_params: g.GameMainParameterObject) {
-  SaveManager.setGameKey(config.storage.prefix);
+  SaveManager.setup(config.storage.prefix, {});
   initializePlugin();
 
   if (isSandbox()) {
@@ -19,12 +19,10 @@ export function main(_params: g.GameMainParameterObject) {
       initForSingle();
     }
   } else if (isLocalPlay()) {
-    setupAtsumaruAPI();
-
-    // アツマール1人プレイなどのローカルHTML起動の場合は1人プレイモードとして起動する
+    // ローカルHTML起動の場合は1人プレイモードとして起動する
     initForSingle();
   } else {
-    // それ以外（ニコ生 / アツマールマルチ）の場合は設定に従って起動する
+    // それ以外（ニコ生）の場合は設定に従って起動する
     switch (config.game.launch_mode) {
       case 'ranking': {
         initForListenSessionParameter();
@@ -83,7 +81,7 @@ function start(params: LaunchParameter) {
     // ローカル起動の場合はセーブデータを読み込む
     const scene = new g.Scene({ game: g.game });
     SaveManager.load(scene, () => {
-      if (isDevelopment()) console.log('SaveManager', SaveManager.items);
+      if (isDevelopment()) console.log('SaveManager', SaveManager.data);
       g.game.scenes.pop();
       launch(params);
     });
@@ -123,33 +121,4 @@ function setupSandbox() {
   };
   resizeFunc();
   window.addEventListener('resize', resizeFunc);
-}
-
-/**
- * アツマールAPIの設定
- * アツマールの1人プレイモード以外の環境ではスキップする
- */
-function setupAtsumaruAPI() {
-  if (!isAtsumaruSoloPlay()) return;
-
-  const atsumaruAPI = getAtsumaruApi();
-  if (!atsumaruAPI) return;
-  if (!atsumaruAPI.popups) return;
-  if (!atsumaruAPI.popups.setThanksSettings) return;
-
-  const { thanksSetting, nicoAdSetting } = config.atsumaru;
-
-  if (thanksSetting) {
-    atsumaruAPI.popups.setThanksSettings({
-      autoThanks: thanksSetting.autoThanks,
-      thanksText: thanksSetting.thanks.text,
-      thanksImage: thanksSetting.thanks.image,
-      clapThanksText: thanksSetting.clap.text,
-      clapThanksImage: thanksSetting.clap.image,
-      giftThanksText: thanksSetting.gift.text,
-      giftThanksImage: thanksSetting.gift.image,
-    });
-  }
-
-  if (nicoAdSetting && nicoAdSetting.nicoAdBar) showNicoAdBar(nicoAdSetting.nicoAdBar);
 }

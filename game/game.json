@@ -35,14 +35,8 @@
 			],
 			"preferredSessionParameters": {}
 		},
-		"atsumaru": {
-			"supportedModes": [
-				"multi"
-			]
-		},
 		"external": {
-			"coeLimited": "0",
-			"atsumaru": "0"
+			"coeLimited": "0"
 		}
 	}
 }

@@ -12,36 +12,4 @@ storage:
   # セーブデータ用 localStorage の key につけるプレフィックス
   # ローカルデバッグで他のゲームのセーブデータと
   # 混ざらないようにするために使用します
-  # ※この設定はアツマール上では必要ないため使用されません
   prefix: 'game'
-
-#==========================================================
-# アツマール用の設定
-#==========================================================
-atsumaru:
-  # おれいポップアップAPI
-  thanksSetting:
-    # おれいポップアップを自動表示するか？
-    autoThanks: false
-    # おれいポップアップのメッセージと画像
-    thanks:
-      text: 'ゲームプレイありがとうございます'
-      image: 'atsumaru/thanks.png'
-    # 拍手のおれいメッセージと画像
-    clap:
-      text: '拍手ありがとうございます'
-      image: 'atsumaru/thanks.png'
-    # ギフトのおれいメッセージと画像
-    gift:
-      text: 'ギフトありがとうございます'
-      image: 'atsumaru/thanks.png'
-  # ニコニ広告API設定
-  nicoAdSetting:
-    nicoAdBar:
-      title: 'ニコニ広告'
-      backgroundColor: 'rgba(255, 229, 0, .8)'
-      textColor: '#000'
-      scrollSpeed: 100
-      scrollTimeMax: 10
-      itemFormat: '%1 さん（%2 pt）'
-      message: '広告ありがとうございます！'

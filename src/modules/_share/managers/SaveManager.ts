@@ -1,25 +1,36 @@
-import { loadAllItems, SaveItems, saveItems } from '$libs';
+import { close, Encoder, isLocalPlay, IStorage, MockStorage, WebStorage } from '$libs';
+import { SaveData } from '../entities';
 
 /**
  * ローカルプレイ用のセーブ管理マネージャー
  */
 class SaveManagerClass {
-  private _gameKey = '';
-  private _items: SaveItems = new Map();
+  private _storage: IStorage<SaveData> = new MockStorage();
+  private _data: SaveData = {};
+  private _initialData: SaveData = {};
+
+  /**
+   * 初期化
+   * @param gameKey
+   * @param initialData
+   * @param customEncoder
+   */
+  setup(gameKey: string, initialData: SaveData, customEncoder?: Encoder<SaveData>) {
+    this._initialData = initialData;
+    this._data = close(initialData);
+
+    if (isLocalPlay()) {
+      this._storage = new WebStorage(gameKey, { customEncoder });
+    } else {
+      this._storage = new MockStorage();
+    }
+  }
 
   /**
    * ロード済みのセーブデータ
    */
-  get items() {
-    return this._items;
-  }
-
-  /**
-   * localStorage用のprefix keyを設定する
-   * @param str
-   */
-  setGameKey(str: string) {
-    this._gameKey = str;
+  get data() {
+    return this._data;
   }
 
   /**
@@ -41,9 +52,7 @@ class SaveManagerClass {
    * ゲームのロードを実行（Promise版）
    */
   loadWithPromise(): Promise<void> {
-    return loadAllItems(this._gameKey).then((items) => {
-      this._items = items;
-    });
+    return this._storage.load().then((data) => (this._data = data || close(this._initialData)));
   }
 
   /**
@@ -65,8 +74,7 @@ class SaveManagerClass {
    * ゲームのセーブを実行（Promise版）
    */
   saveWithPromise(): Promise<void> {
-    if (typeof window === 'undefined') return Promise.reject();
-    return saveItems(this._gameKey, this._items);
+    return this._storage.save(this._data);
   }
 }
 
