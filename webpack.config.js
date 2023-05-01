@@ -3,7 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const { ESBuildMinifyPlugin } = require('esbuild-loader');
+const { EsbuildPlugin } = require('esbuild-loader');
 
 const paths = (() => {
   const root = __dirname;
@@ -80,7 +80,7 @@ module.exports = {
   ].filter(Boolean),
   optimization: {
     minimizer: [
-      new ESBuildMinifyPlugin({
+      new EsbuildPlugin({
         target: 'es2015',
       }),
     ],
