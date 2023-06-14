@@ -47,7 +47,7 @@ export function assetInfo<T extends AssetJson>(assets: T, key: keyof T['frames']
 }
 
 export function applyAssetInfo(e: g.Sprite, assetInfo: AssetInfo) {
-  e.src = e.scene.asset.getImageById(assetInfo.name);
+  e.src = e.scene.asset.getImage(assetInfo.path);
   e.srcX = assetInfo.frame.srcX;
   e.srcY = assetInfo.frame.srcY;
   e.srcWidth = assetInfo.frame.width;
