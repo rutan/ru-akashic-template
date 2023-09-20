@@ -23,7 +23,7 @@ export function createWithAsset<T extends new (args: any) => any, U extends Asse
   entityClass: T,
   assets: U,
   key: keyof U['frames'],
-  options?: Omit<ConstructorParameters<T>[0], 'scene' | 'src' | 'srcX' | 'srcY' | 'width' | 'height'>
+  options?: Omit<ConstructorParameters<T>[0], 'scene' | 'src' | 'srcX' | 'srcY' | 'width' | 'height'>,
 ) {
   const info = assetInfo(assets, key);
   return new entityClass(
@@ -33,8 +33,8 @@ export function createWithAsset<T extends new (args: any) => any, U extends Asse
         src: scene.asset.getImage(info.path),
       },
       info.frame,
-      options || {}
-    )
+      options || {},
+    ),
   );
 }
 

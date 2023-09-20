@@ -56,7 +56,7 @@ glob
 
     const packName = path.basename(dir);
     execSync(
-      `TexturePacker --sheet ${relativeToTmp}/${packName}.png --format json --data ${relativeToTmp}/assets_${packName}.json --trim-sprite-names --prepend-folder-name --max-size 2048 --border-padding 2 --disable-rotation --trim-mode None ./assets/${packName}/`
+      `TexturePacker --sheet ${relativeToTmp}/${packName}.png --format json --data ${relativeToTmp}/assets_${packName}.json --trim-sprite-names --prepend-folder-name --max-size 2048 --border-padding 2 --disable-rotation --trim-mode None ./assets/${packName}/`,
     );
     cpx.copy(`${relativeToTmp}/${packName}.png`, outputTextureDir, () => {
       console.log(`[done] ${packName} (copy)`);
