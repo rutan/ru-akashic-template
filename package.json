@@ -24,24 +24,22 @@
     "format": "run-s format:*",
     "format:eslint": "eslint --fix src",
     "format:prettier": "prettier --write .",
-    "zip-live": "run-s build zip-live:*",
-    "zip-live:export": "akashic export zip -C ./game --output _dist/nicolive.zip --nicolive --no-es5-downpile",
-    "zip-web": "run-s build zip-web:*",
-    "zip-web:mkdir": "mkdirp _dist/web && mkdirp ./tmp && rimraf ./tmp/build",
-    "zip-web:export": "akashic export html --source ./game -o ./tmp/build --inject ./inject.html",
-    "zip-web:copy": "cpx './public/**/*' ./tmp/build",
-    "zip-web:deployment": "deployment-zip ./tmp/build",
+    "zip": "run-s build zip:*",
+    "zip:archive": "node ./scripts/archive.cjs",
     "prepare": "husky install",
     "precommit": "npm run lint"
   },
   "dependencies": {
     "@akashic-extension/akashic-hover-plugin": "^3.1.1",
     "@akashic-extension/resolve-player-info": "^1.1.1",
+    "@akashic/akashic-cli-commons": "^0.14.10",
+    "@akashic/akashic-cli-scan": "^0.16.12",
     "@akashic/akashic-engine": "^3.15.0",
     "@akashic/akashic-gameview-web": "file:./vendor/akashic-gameview-web",
     "@akashic/playlog-client": "file:./vendor/playlog-client",
     "@rutan/akashic-right-click-plugin": "^0.1.1",
-    "eventmit": "^2.0.4"
+    "eventmit": "^2.0.4",
+    "vm2": "^3.9.17"
   },
   "devDependencies": {
     "@akashic/akashic-cli": "^2.16.43",
