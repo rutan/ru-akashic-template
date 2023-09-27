@@ -1,15 +1,6 @@
 <script>
   window.Toripota = window.Toripota || {};
   window.Toripota.isWeb = true;
-
-  // iOS 13 bug
-  // @see https://torigoya.hatenadiary.jp/entry/tanomuzo-apple
-  if (window.gLocalAssetContainer && window.gLocalAssetContainer['game.json']) {
-    window.gLocalAssetContainer['game.json'] = window.gLocalAssetContainer['game.json'].replace(
-      /untainted%22: true/g,
-      'untainted%22: false',
-    );
-  }
 </script>
 <style>
   body {

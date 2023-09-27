@@ -6,6 +6,7 @@ const { ConsoleLogger } = require('@akashic/akashic-cli-commons');
 const { promiseExportHTML } = require('@akashic/akashic-cli-export/lib/html/exportHTML.js');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
+const INJECT_HTML_NAME = 'inject.html';
 
 async function buildForWeb(source, staticDir, distDir) {
   const logger = new ConsoleLogger();
@@ -20,7 +21,7 @@ async function buildForWeb(source, staticDir, distDir) {
     minify: false,
     bundle: false,
     magnify: true,
-    injects: [],
+    injects: [INJECT_HTML_NAME],
     unbundleText: true,
     omitUnbundledJs: false,
     compress: false,
