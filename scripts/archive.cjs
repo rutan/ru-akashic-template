@@ -39,7 +39,7 @@ async function buildForWeb(source, publicDir, output) {
 
   cpx.copySync(path.resolve(publicDir, '**', '*'), tmpDir);
 
-  await deployZip.deploy.deploy(tmpDir, {
+  await deployZip.deploy(tmpDir, {
     output,
     ignore: [
       // OS
@@ -98,6 +98,6 @@ async function buildForNicoLive(source, dest) {
 
   await Promise.all([
     buildForWeb(source, publicDir, path.resolve(distDir, `web_${outputName}.zip`)),
-    // buildForNicoLive(source, path.resolve(distDir, `nicolive_${outputName}.zip`)),
+    buildForNicoLive(source, path.resolve(distDir, `nicolive_${outputName}.zip`)),
   ]);
 })();

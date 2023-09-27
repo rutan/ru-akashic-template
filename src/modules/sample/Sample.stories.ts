@@ -1,6 +1,5 @@
 import { Converter } from '@akashic-extension/akashic-hover-plugin';
 import { Story } from '@kudohamu/storybook-akashic';
-import { asRightClickable } from '@rutan/akashic-right-click-plugin';
 import { action } from '@storybook/addon-actions';
 import { assetsSample1, createWithAsset } from '$assets';
 
@@ -14,7 +13,6 @@ const Template: Story<g.SpriteParameterObject> = (params) => {
     touchable: true,
   });
   Converter.asHoverable(sprite).hovered.add(action('hover'));
-  asRightClickable(sprite).rightClickDown.add(action('rightClick'));
   sprite.onPointDown.add(action('pointDown'));
 
   return sprite;

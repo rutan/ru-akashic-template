@@ -1,12 +1,7 @@
-import { asRightClickable } from '@rutan/akashic-right-click-plugin';
 import { assetsSample1, assetsSample2, createWithAsset } from '$assets';
 import { BaseScene } from '$share';
 
 export class SampleScene extends BaseScene {
-  getAtsumaruCommentSceneName() {
-    return 'Sample';
-  }
-
   create() {
     const sprite1 = createWithAsset(this, g.Sprite, assetsSample1, 'a', {
       x: 100,
@@ -19,8 +14,23 @@ export class SampleScene extends BaseScene {
       touchable: true,
     });
     this.append(sprite2);
-    asRightClickable(sprite2).rightClickDown.add(() => {
-      console.log('rightClick');
+    sprite2.onPointDown.add((e: g.PointDownEvent) => {
+      switch (e.button) {
+        case 0: {
+          console.log('leftClick');
+          break;
+        }
+        case 1: {
+          console.log('centerClick');
+          break;
+        }
+        case 2: {
+          console.log('rightClick');
+          break;
+        }
+        default:
+          console.log('otherClick');
+      }
     });
 
     sprite2.onPointUp.add(() => {

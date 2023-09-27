@@ -37,7 +37,6 @@
     "@akashic/akashic-engine": "^3.15.0",
     "@akashic/akashic-gameview-web": "file:./vendor/akashic-gameview-web",
     "@akashic/playlog-client": "file:./vendor/playlog-client",
-    "@rutan/akashic-right-click-plugin": "^0.1.1",
     "eventmit": "^2.0.4",
     "vm2": "^3.9.17"
   },
@@ -46,7 +45,7 @@
     "@akashic/akashic-engine-standalone": "^3.15.0",
     "@akashic/akashic-sandbox": "^0.24.4",
     "@kudohamu/storybook-akashic": "^6.3.13",
-    "@rutan/deployment-zip": "^0.1.0",
+    "@rutan/deployment-zip": "^0.2.1",
     "@storybook/addon-actions": "^6.5.16",
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/builder-webpack5": "^6.5.16",
