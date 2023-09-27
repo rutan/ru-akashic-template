@@ -9,6 +9,7 @@
     "serve": "akashic serve --target-service nicolive ./game",
     "build": "run-s lint clean build:* scan",
     "build:webpack": "cross-env NODE_ENV=production webpack",
+    "build:web": "node ./scripts/buildForWeb.cjs",
     "watch": "webpack -w",
     "assets": "run-s assets:* scan",
     "assets:mkdir": "mkdirp ./tmp && mkdirp src/assets && mkdirp game/assets/textures",
