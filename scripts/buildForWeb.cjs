@@ -2,14 +2,14 @@ const path = require('path');
 const cpx = require('cpx2');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
-const { ConsoleLogger } = require('@akashic/akashic-cli-commons');
 const { promiseExportHTML } = require('@akashic/akashic-cli-export/lib/html/exportHTML.js');
+const { CustomLogger } = require('./modules/logger.cjs');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const INJECT_HTML_NAME = 'inject.html';
 
 async function buildForWeb(source, staticDir, distDir) {
-  const logger = new ConsoleLogger();
+  const logger = new CustomLogger();
   await promiseExportHTML({
     cwd: ROOT_DIR,
     source,

@@ -1,9 +1,9 @@
 const path = require('path');
 const mkdirp = require('mkdirp');
 const packageJSON = require('../package.json');
-const { ConsoleLogger } = require('@akashic/akashic-cli-commons');
 const { promiseExportZip } = require('@akashic/akashic-cli-export/lib/zip/exportZip.js');
 const deployZip = require('@rutan/deployment-zip');
+const { CustomLogger } = require('./modules/logger.cjs');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 
@@ -23,7 +23,7 @@ async function archiveForWeb(publicDir, output) {
 }
 
 async function archiveForNicoLive(source, dest) {
-  const logger = new ConsoleLogger();
+  const logger = new CustomLogger();
   await promiseExportZip({
     cwd: ROOT_DIR,
     source,
