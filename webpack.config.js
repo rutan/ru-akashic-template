@@ -63,11 +63,6 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.ya?ml$/,
-        include: paths.src,
-        use: 'yaml-loader',
-      },
     ],
   },
   plugins: [
