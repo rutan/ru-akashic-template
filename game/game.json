@@ -33,7 +33,9 @@
 			"supportedModes": [
 				"multi_admission"
 			],
-			"preferredSessionParameters": {}
+			"preferredSessionParameters": {
+				"totalTimeLimit": 80
+			}
 		},
 		"external": {
 			"coeLimited": "0"
