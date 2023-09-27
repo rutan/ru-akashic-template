@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const { EsbuildPlugin } = require('esbuild-loader');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const paths = (() => {
   const root = __dirname;
@@ -63,11 +63,6 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.ya?ml$/,
-        include: paths.src,
-        use: 'yaml-loader',
-      },
     ],
   },
   plugins: [
@@ -83,8 +78,8 @@ module.exports = {
   ].filter(Boolean),
   optimization: {
     minimizer: [
-      new EsbuildPlugin({
-        target: 'es2015',
+      new TerserPlugin({
+        extractComments: false,
       }),
     ],
   },

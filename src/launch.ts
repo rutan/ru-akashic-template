@@ -1,9 +1,11 @@
 import { SceneManager } from './SceneManager';
 
 export interface LaunchParameter {
+  service?: 'nicolive';
   mode?: 'single' | 'ranking' | 'multi';
   totalTimeLimit?: number;
   randomSeed?: number;
+  difficulty?: number;
 }
 
 /**

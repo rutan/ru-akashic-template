@@ -3,7 +3,7 @@
     "target": "esnext",
     "rootDir": ".",
     "lib": ["es5", "dom"],
-    "types": ["@types/node", "@atsumaru/api-types"],
+    "types": ["@types/node"],
     "allowUmdGlobalAccess": true,
     "allowJs": true,
     "esModuleInterop": true,
