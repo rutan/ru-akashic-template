@@ -2,6 +2,22 @@
 
 [Akashic Engine](https://akashic-games.github.io/) でゲームを作るときのプロジェクトのテンプレートだよ。
 
+[Akashic Engine 標準のテンプレート機能](https://github.com/akashic-contents/templates)とは異なり、このリポジトリをまるっとコピーして持っていくタイプです。
+
+## 特徴
+公式のテンプレート（ `typescript-shin-ichiba-ranking` ）との主な違いは以下です。
+
+- Webpack での事前 bundle / minify
+- [storybook-akashic](https://github.com/kudohamu/storybook-akashic) を利用したコンポーネント表示
+- [TexturePacker](https://www.codeandweb.com/texturepacker) を利用した画像の結合＆呼び出し用コードの自動生成
+- ニコ生ゲーム以外での公開のための機能
+  - 例1）staticフォルダを利用したファイルの追加（favicon.ico など）
+  - 例2）localStorageを使用したセーブ機構
+- その他、強い "思想"
+  - ディレクトリ構成の強制など
+
+なお、公式ではES5へのトランスパイルが行われていますが、このテンプレートでは target を es2015 にしています。
+
 ## 必要なもの
 
 - node.js
@@ -10,11 +26,11 @@
 ## あると便利なもの
 
 - [TexturePacker](https://www.codeandweb.com/texturepacker)
-    - CLIツールを使えるようにしておくこと
+  - CLIツールを使えるようにしておくこと
 
 ## ディレクトリ構成
 ```
-├ _dist/        … アツマールに投稿するzipファイルが出てくる場所
+├ _dist/        … ニコ生などに投稿するzipファイルが出てくる場所
 ├ assets/       … テクスチャ画像置き場（後述）
 ├ extensions/   … eslintなどのカスタムルール置き場
 ├ game/         … ゲーム本体
@@ -39,7 +55,6 @@ $ yarn watch
 
 #### 本番
 ```
-# zipファイル作成
 $ yarn zip
 ```
 
