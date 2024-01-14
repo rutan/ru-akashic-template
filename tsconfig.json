@@ -21,7 +21,8 @@
       "$assets": ["./src/assets"],
       "$libs": ["./src/libs"],
       "$data": ["./src/data"],
-      "$share": ["./src/modules/_share"]
+      "$share": ["./src/modules/_share"],
+      "$storybook": ["./src/_storybook"]
     }
   },
   "include": ["src/**/*"],

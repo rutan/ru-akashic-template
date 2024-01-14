@@ -7,8 +7,8 @@
 ## 特徴
 公式のテンプレート（ `typescript-shin-ichiba-ranking` ）との主な違いは以下です。
 
-- Webpack での事前 bundle / minify
-- [storybook-akashic](https://github.com/kudohamu/storybook-akashic) を利用したコンポーネント表示
+- Vite での事前 bundle / minify
+- [storybook](https://storybook.js.org/) を利用したコンポーネント表示
 - [TexturePacker](https://www.codeandweb.com/texturepacker) を利用した画像の結合＆呼び出し用コードの自動生成
 - ニコ生ゲーム以外での公開のための機能
   - 例1）staticフォルダを利用したファイルの追加（favicon.ico など）

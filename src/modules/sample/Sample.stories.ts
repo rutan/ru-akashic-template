@@ -1,21 +1,43 @@
+import { mount } from '$storybook';
 import { Converter } from '@akashic-extension/akashic-hover-plugin';
-import { Story } from '@kudohamu/storybook-akashic';
 import { action } from '@storybook/addon-actions';
+import { StoryObj, Meta } from '@storybook/html';
 import { assetsSample1, createWithAsset } from '$assets';
 
-export default {
+type Props = g.SpriteParameterObject & {
+  name: 'a' | 'ru';
+};
+
+const meta = {
   title: 'sample/Sample',
+  render: (params) => {
+    return mount((scene) => {
+      const sprite = createWithAsset(scene, g.Sprite, assetsSample1, params.name, {
+        ...params,
+        touchable: true,
+      });
+      Converter.asHoverable(sprite).hovered.add(action('hover'));
+      sprite.onPointDown.add(action('pointDown'));
+
+      return sprite;
+    });
+  },
+} satisfies Meta<Props>;
+
+export default meta;
+
+type Story = StoryObj<Props>;
+
+export const A: Story = {
+  name: 'あ',
+  args: {
+    name: 'a',
+  },
 };
 
-const Template: Story<g.SpriteParameterObject> = (params) => {
-  const sprite = createWithAsset(params.scene, g.Sprite, assetsSample1, 'ru', {
-    ...params,
-    touchable: true,
-  });
-  Converter.asHoverable(sprite).hovered.add(action('hover'));
-  sprite.onPointDown.add(action('pointDown'));
-
-  return sprite;
+export const Ru: Story = {
+  name: 'る',
+  args: {
+    name: 'ru',
+  },
 };
-
-export const Default = Template.bind({});

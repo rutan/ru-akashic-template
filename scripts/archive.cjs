@@ -59,7 +59,7 @@ async function archiveForNicoLive(source, dest) {
     packageJSON.version,
   ].join('');
 
-  const publicDir = path.resolve(ROOT_DIR, 'public');
+  const publicDir = path.resolve(ROOT_DIR, '_dist', 'public');
   const source = path.resolve(ROOT_DIR, 'game');
   const distDir = path.resolve(ROOT_DIR, '_dist', outputName);
 

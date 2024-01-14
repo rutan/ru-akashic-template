@@ -1,32 +1,48 @@
-import { StorybookConfig } from '@storybook/core-common';
+import { mergeConfig } from 'vite';
+import type { StorybookConfig } from "@storybook/html-vite";
+// @ts-ignore
+import viteConfig from '../vite.config';
 
-const baseConfig = require('../webpack.config');
-
-module.exports = <StorybookConfig>{
-  stories: ['../src/**/*.stories.@(js|ts)'],
-  webpackFinal: async (config) => {
-    config.module!.rules = baseConfig.module.rules.concat(config.module!.rules);
-    config.resolve!.alias = {
-      ...config.resolve!.alias,
-      ...baseConfig.resolve.alias,
-    };
-
-    return config;
-  },
+const config: StorybookConfig = {
+  stories: ["../src/**/*.stories.@(js|mjs|ts)"],
   addons: [
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        actions: true,
-        backgrounds: true,
-        controls: true,
-        docs: true,
-        viewport: false,
-        toolbars: false
-      }
-    }
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
   ],
   core: {
-    builder: 'webpack5'
-  }
+    builder: '@storybook/builder-vite'
+  },
+  framework: {
+    name: "@storybook/html-vite",
+    options: {
+    },
+  },
+  staticDirs: [
+    "../game"
+  ],
+  docs: {
+    autodocs: "tag",
+  },
+  async viteFinal(config) {
+    const appConfig = viteConfig({
+      command: 'serve',
+      mode: 'development',
+    });
+
+    return mergeConfig(config, {
+      resolve: {
+        alias: {
+          ...(config.resolve?.alias || []),
+          ...(appConfig.resolve?.alias || [])
+        },
+      },
+      define: {
+        ...(config.define || {}),
+        ...(appConfig.define || {})
+      }
+    });
+  },
 };
+
+export default config;

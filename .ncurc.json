@@ -1,9 +1,3 @@
 {
-  "reject": [
-    "@storybook/addon-actions",
-    "@storybook/addon-essentials",
-    "@storybook/builder-webpack5",
-    "@storybook/manager-webpack5",
-    "wrap-ansi"
-  ]
+  "reject": ["wrap-ansi"]
 }
