@@ -61,7 +61,7 @@ function initForMulti() {
  */
 function initForListenSessionParameter() {
   const scene = new g.Scene({ game: g.game });
-  scene.onMessage.add((msg) => {
+  scene.onMessage.add((msg: g.MessageEvent) => {
     if (!msg.data) return;
     if (msg.data.type !== 'start') return;
 

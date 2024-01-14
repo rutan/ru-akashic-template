@@ -20,8 +20,12 @@
 
 ## 必要なもの
 
-- node.js
-- yarn
+このリポジトリでは node のバージョン管理に Volta を使うことを想定しています。
+
+- [Volta](https://volta.sh/)
+  - pnpm サポートを有効にしてください
+  - 詳細： https://docs.volta.sh/advanced/pnpm
+    - 環境変数に `VOLTA_FEATURE_PNPM=1` を設定する
 
 ## あると便利なもの
 
@@ -47,15 +51,20 @@
 
 ## 開発の流れ
 
+### セットアップ
+```
+$ pnpm install
+```
+
 ### ビルド
 #### 開発中（ watch ビルド）
 ```
-$ yarn watch
+$ pnpm run watch
 ```
 
 #### 本番
 ```
-$ yarn zip
+$ pnpm run zip
 ```
 
 ### 起動
@@ -64,15 +73,15 @@ $ yarn zip
 akashic sandbox を利用して起動します
 
 ```
-$ yarn start
+$ pnpm run start
 ```
 
 #### サーバ起動
 
-akashic server を利用して起動します
+akashic-serve を利用して起動します
 
 ```
-$ yarn serve
+$ pnpm run serve
 ```
 
 ## 各種あれこれ

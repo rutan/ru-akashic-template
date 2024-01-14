@@ -8,3 +8,4 @@
 /.storybook
 
 *.md
+pnpm-lock.yaml
