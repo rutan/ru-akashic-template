@@ -5,7 +5,7 @@ import { version } from './package.json';
 
 export default defineConfig(({}) => {
   const paths = (() => {
-    const root = __dirname;
+    const root = new URL('.', import.meta.url).pathname;
     return {
       root,
       src: path.join(root, 'src'),
