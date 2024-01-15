@@ -10,18 +10,16 @@ type Props = g.SpriteParameterObject & {
 
 const meta = {
   title: 'sample/Sample',
-  render: (params) => {
-    return mount((scene) => {
-      const sprite = createWithAsset(scene, g.Sprite, assetsSample1, params.name, {
-        ...params,
-        touchable: true,
-      });
-      Converter.asHoverable(sprite).hovered.add(action('hover'));
-      sprite.onPointDown.add(action('pointDown'));
-
-      return sprite;
+  render: mount((params) => {
+    const sprite = createWithAsset(params.scene, g.Sprite, assetsSample1, params.name, {
+      ...params,
+      touchable: true,
     });
-  },
+    Converter.asHoverable(sprite).hovered.add(action('hover'));
+    sprite.onPointDown.add(action('pointDown'));
+
+    return sprite;
+  }),
 } satisfies Meta<Props>;
 
 export default meta;
