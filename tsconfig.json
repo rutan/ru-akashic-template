@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "module": "esnext",
     "rootDir": ".",
     "lib": ["es5", "dom"],
     "types": ["@types/node"],
