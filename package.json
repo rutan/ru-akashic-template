@@ -36,8 +36,6 @@
     "@akashic/akashic-cli-commons": "^0.14.18",
     "@akashic/akashic-cli-scan": "^0.16.26",
     "@akashic/akashic-engine": "^3.16.4",
-    "@akashic/akashic-gameview-web": "file:./vendor/akashic-gameview-web",
-    "@akashic/playlog-client": "file:./vendor/playlog-client",
     "eventmit": "^2.0.4"
   },
   "devDependencies": {

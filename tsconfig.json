@@ -21,9 +21,9 @@
       "$assets": ["./src/assets"],
       "$libs": ["./src/libs"],
       "$data": ["./src/data"],
-      "$share": ["./src/modules/_share"]
-    }
+      "$share": ["./src/modules/_share"],
+    },
   },
   "include": ["src/**/*"],
-  "files": ["node_modules/@akashic/akashic-engine/index.runtime.d.ts"]
+  "files": ["node_modules/@akashic/akashic-engine/index.runtime.d.ts"],
 }
