@@ -28,10 +28,6 @@ export default defineConfig(({}) => {
       },
       outDir: paths.out,
       emptyOutDir: false,
-
-      // @rollup/plugin-commonjs を削除する
-      // https://ja.vitejs.dev/config/dep-optimization-options.html#optimizedeps-disabled
-      commonjsOptions: { include: [] },
     },
     resolve: {
       alias: {
@@ -46,9 +42,6 @@ export default defineConfig(({}) => {
     },
     define: {
       ...defineList,
-    },
-    optimizeDeps: {
-      disabled: false,
     },
   };
 });
