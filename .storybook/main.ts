@@ -8,15 +8,11 @@ const config: StorybookConfig = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
   ],
-  core: {
-    builder: '@storybook/builder-vite'
-  },
+  core: {},
   framework: {
     name: "@storybook/html-vite",
-    options: {
-    },
+    options: {},
   },
   staticDirs: [
     "../game"
