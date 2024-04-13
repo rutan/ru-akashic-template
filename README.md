@@ -9,7 +9,7 @@
 
 - Vite での事前 bundle / minify
 - [storybook](https://storybook.js.org/) を利用したコンポーネント表示
-- [TexturePacker](https://www.codeandweb.com/texturepacker) を利用した画像の結合＆呼び出し用コードの自動生成
+- [free-tex-packer-core](https://github.com/odrick/free-tex-packer-core) を利用した画像の結合＆呼び出し用コードの自動生成
 - ニコ生ゲーム以外での公開のための機能
   - 例1）staticフォルダを利用したファイルの追加（favicon.ico など）
   - 例2）localStorageを使用したセーブ機構
@@ -28,11 +28,6 @@ corepack を有効にしていない場合は、以下のコマンドを実行�
 ```
 corepack enable pnpm
 ```
-
-## あると便利なもの
-
-- [TexturePacker](https://www.codeandweb.com/texturepacker)
-  - CLIツールを使えるようにしておくこと
 
 ## ディレクトリ構成
 ```
@@ -107,14 +102,14 @@ src/modules/result   … リザルトシーンのコード
 複数のシーンにまたがって利用するコードは、必ず `src/modules/_share` に設置してください。
 
 ### テクスチャ画像について
-TexturePacker を利用した画像アセットをサポートしています。
+free-tex-packer-core を利用した画像アセットをサポートしています。
 
 1. プロジェクトルートにある `assets/` 以下にディレクトリを作成する
 2. 中に画像ファイルを入れる
-3. `yarn assets` を実行
-4. TexturePacker で画像の結合＆呼び出し用コード (JSON) の生成
+3. `pnpm run assets` を実行
+4. free-tex-packer-core で画像の結合＆呼び出し用コード (JSON) の生成
 
-例えば `assets/sample1/` というフォルダ内に画像を設置した場合、 `game/assets/textures/sample1.png` と `src/assets/textures/assets_sample1.json` が生成されます。
+例えば `assets/sample1/` というフォルダ内に画像を設置した場合、 `game/assets/textures/sample1.png` と `src/assets/textures/sample1.json` が生成されます。
 
 このテクスチャ画像は以下のようなコードで呼び出すことができます。
 

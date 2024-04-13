@@ -7,14 +7,14 @@
 		"assets/textures/sample1.png": {
 			"type": "image",
 			"path": "assets/textures/sample1.png",
-			"width": 264,
-			"height": 134
+			"width": 132,
+			"height": 264
 		},
 		"assets/textures/sample2.png": {
 			"type": "image",
 			"path": "assets/textures/sample2.png",
-			"width": 264,
-			"height": 134
+			"width": 132,
+			"height": 264
 		},
 		"bundle": {
 			"type": "script",

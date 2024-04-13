@@ -6,13 +6,11 @@ export interface Frame {
 }
 
 export interface AssetJson {
-  name: string;
   path: string;
   frames: { [key: string]: Frame };
 }
 
 export interface AssetInfo {
-  name: string;
   path: string;
   frame: Frame;
 }
@@ -39,11 +37,10 @@ export function createWithAsset<T extends new (args: any) => any, U extends Asse
 }
 
 export function assetInfo<T extends AssetJson>(assets: T, key: keyof T['frames']): AssetInfo {
-  const name = assets.name;
   const path = assets.path;
   const frame = assets.frames[key as string];
   if (!frame) throw `invalid asset name: ${String(key)}`;
-  return { name, path, frame };
+  return { path, frame };
 }
 
 export function applyAssetInfo(e: g.Sprite, assetInfo: AssetInfo) {
