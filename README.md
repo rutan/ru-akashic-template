@@ -20,12 +20,14 @@
 
 ## 必要なもの
 
-このリポジトリでは node のバージョン管理に Volta を使うことを想定しています。
+- [node.js](https://nodejs.org/)
 
-- [Volta](https://volta.sh/)
-  - pnpm サポートを有効にしてください
-  - 詳細： https://docs.volta.sh/advanced/pnpm
-    - 環境変数に `VOLTA_FEATURE_PNPM=1` を設定する
+また、pnpm を利用するため corepack を有効にする必要があります。  
+corepack を有効にしていない場合は、以下のコマンドを実行してください。
+
+```
+corepack enable pnpm
+```
 
 ## あると便利なもの
 
@@ -46,42 +48,42 @@
 │ ├ libs/      … ゲーム固有でない汎用処理のコード置き場
 │ └ modules/   … ゲーム固有のコード置き場
 │   └ _share/  … ゲーム全体で共有するコード置き場
-└ vendor/       … ダミー用のパッケージ置き場（後述）
+└ tmp/          … ビルド処理とかで使う一時ファイルの出力先
 ```
 
 ## 開発の流れ
 
 ### セットアップ
 ```
+# corepackを有効にしていない場合、一度だけ実行する
+$ corepack enable pnpm
+
 $ pnpm install
 ```
 
-### ビルド
-#### 開発中（ watch ビルド）
+### 開発中
 ```
-$ pnpm run watch
-```
-
-#### 本番
-```
-$ pnpm run zip
+$ pnpm run dev
 ```
 
-### 起動
-#### ローカル起動
+akashic sandbox が起動します。
+`http://localhost:3000` をブラウザで開いてください。
 
-akashic sandbox を利用して起動します
-
-```
-$ pnpm run start
-```
-
-#### サーバ起動
-
-akashic-serve を利用して起動します
+マルチプレイのゲームを開発する場合など、 akashic serve を利用したい場合は以下のコマンドを使用してください。
 
 ```
-$ pnpm run serve
+$ pnpm run dev-serve
+```
+
+### デプロイメント
+```
+# ブラウザプレイ用のビルド（PLiCyなど）
+$ pnpm run build
+$ pnpm run deploy:web
+
+# ニコ生ゲーム投稿用のビルド
+$ pnpm run build
+$ pnpm run deploy:nicolive
 ```
 
 ## 各種あれこれ
@@ -141,23 +143,3 @@ scene.append(sprite);
 Web 向けビルドに生成される zip ファイルの中に static ディレクトリ内のファイルを含むことができます。ニコ生ゲーム向けビルドには含まれません。
 
 ここには favicon などの Web 公開時に必要となるファイルを設置することを想定しています。
-
-## その他
-
-### resolutions の指定
-
-`@akashic/akashic-cli` などが一部非公開パッケージ（？）を optionalDependency に指定しているため、 `yarn install` がコケてしまう……！(◞‸◟)
-
-そのため、 yarn install をコケさせないために optionalDependency のパッケージのダミーを resolutions に指定しています。
-
-### TexturePackerのCLIツール in WSL
-
-Windows 上の TexturePacker を使いたいのでこういうのを書いてる。WSL2 で動くかは不明。
-
-```
-#!/bin/bash
-
-/mnt/d/Tools/TexturePacker/bin/TexturePacker.exe $@
-```
-
-※パスは適宜よい場所を指定しよう！

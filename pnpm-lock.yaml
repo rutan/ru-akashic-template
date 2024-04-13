@@ -28,6 +28,9 @@ devDependencies:
   '@akashic/akashic-cli-export':
     specifier: ^1.8.39
     version: 1.8.39
+  '@akashic/akashic-cli-scan':
+    specifier: ^0.16.30
+    version: 0.16.30(browserify@17.0.0)
   '@akashic/akashic-engine-standalone':
     specifier: ^3.17.1
     version: 3.17.1
@@ -67,6 +70,9 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^7.6.0
     version: 7.6.0(eslint@8.57.0)(typescript@5.4.5)
+  chokidar:
+    specifier: ^3.6.0
+    version: 3.6.0
   cpx2:
     specifier: ^7.0.1
     version: 7.0.1
