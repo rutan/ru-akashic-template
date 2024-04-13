@@ -27,7 +27,7 @@
     "format:prettier": "prettier --write .",
     "format:eslint": "eslint --fix src",
     "zip:web": "cross-env JITI_ESM_RESOLVE=1 jiti ./scripts/buildForWeb.ts && deployment-zip -c .deployment-zip.ts -m zip ./tmp/_build",
-    "zip:nicolive": "JITI_ESM_RESOLVE=1 jiti ./scripts/archiveForNicoLive.ts",
+    "zip:nicolive": "cross-env JITI_ESM_RESOLVE=1 jiti ./scripts/archiveForNicoLive.ts",
     "prepare": "husky install",
     "precommit": "npm run lint"
   },
@@ -69,15 +69,7 @@
     "rimraf": "^5.0.5",
     "storybook": "^8.0.8",
     "typescript": "^5.4.5",
-    "vite": "^5.2.8",
-    "wrap-ansi": "^7.0.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@akashic/playlog-client": "file:./vendor/playlog-client",
-      "@akashic/akashic-gameview-web": "file:./vendor/akashic-gameview-web",
-      "@akashic-extension/akashic-hover-plugin": "^3.2.2"
-    }
+    "vite": "^5.2.8"
   },
   "packageManager": "pnpm@8.15.6"
 }

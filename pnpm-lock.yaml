@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@akashic/playlog-client': file:./vendor/playlog-client
-  '@akashic/akashic-gameview-web': file:./vendor/akashic-gameview-web
-  '@akashic-extension/akashic-hover-plugin': ^3.2.2
-
 dependencies:
   '@akashic-extension/akashic-hover-plugin':
     specifier: ^3.2.2
@@ -120,9 +115,6 @@ devDependencies:
   vite:
     specifier: ^5.2.8
     version: 5.2.8(@types/node@20.12.7)
-  wrap-ansi:
-    specifier: ^7.0.0
-    version: 7.0.0
 
 packages:
 
