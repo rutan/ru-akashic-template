@@ -1,16 +1,15 @@
 {
-  "name": "sample1",
   "path": "/assets/textures/sample1.png",
   "frames": {
     "a": {
-      "srcX": 3,
-      "srcY": 3,
+      "srcX": 2,
+      "srcY": 2,
       "width": 128,
       "height": 128
     },
     "ru": {
-      "srcX": 133,
-      "srcY": 3,
+      "srcX": 2,
+      "srcY": 134,
       "width": 128,
       "height": 128
     }
