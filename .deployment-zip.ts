@@ -2,6 +2,8 @@ import { defineConfig } from '@rutan/deployment-zip';
 import { resolve } from 'node:path';
 import * as packageJSON from './package.json';
 
+const gameName = (packageJSON.name.split('/').pop() ?? '').replace(/\//g, '_');
+const gameVersion = packageJSON.version.replace(/\./g, '_');
 const timestamp = (() => {
   const now = new Date();
   return [
@@ -16,10 +18,18 @@ const timestamp = (() => {
 })();
 
 export default defineConfig({
-  ignores: ['.DS_Store', 'Thumb.db', 'Desktop.ini'],
+  ignores: [
+    // OS
+    '.DS_Store',
+    'Thumb.db',
+    'Desktop.ini',
+
+    // AkashicEngine
+    '*.d.ts',
+  ],
   zip: {
     output() {
-      return resolve('_dist', `${packageJSON.name}-${timestamp}-${packageJSON.version.replace(/\./g, '_')}.zip`);
+      return resolve('_dist', `${gameName}-${timestamp}-${gameVersion}.zip`);
     },
   },
 });
