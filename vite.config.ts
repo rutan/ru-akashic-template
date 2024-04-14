@@ -21,6 +21,7 @@ export default defineConfig(({}) => {
 
   return {
     build: {
+      target: 'es2015',
       lib: {
         entry: resolve(paths.src, 'index.ts'),
         fileName: () => 'bundle.js',
