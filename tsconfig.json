@@ -22,8 +22,9 @@
       "$libs": ["./src/libs"],
       "$data": ["./src/data"],
       "$share": ["./src/modules/_share"],
-    },
+      "$storybook": ["./src/_storybook"]
+    }
   },
   "include": ["src/**/*"],
-  "files": ["node_modules/@akashic/akashic-engine/index.runtime.d.ts"],
+  "files": ["node_modules/@akashic/akashic-engine/index.runtime.d.ts"]
 }

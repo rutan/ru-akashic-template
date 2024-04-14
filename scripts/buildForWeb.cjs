@@ -37,7 +37,7 @@ async function buildForWeb(source, staticDir, distDir) {
 (async () => {
   const source = path.resolve(ROOT_DIR, 'game');
   const staticDir = path.resolve(ROOT_DIR, 'static');
-  const distDir = path.resolve(ROOT_DIR, 'public');
+  const distDir = path.resolve(ROOT_DIR, '_dist', 'public');
 
   rimraf.sync(distDir);
   mkdirp.sync(distDir);
