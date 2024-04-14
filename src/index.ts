@@ -5,61 +5,12 @@ import { initializePlugin } from './initializePlugin';
 import { launch, LaunchParameter } from './launch';
 
 export function main(_params: g.GameMainParameterObject) {
+  // 初期化
   SaveManager.setup(config.storage.prefix, {});
   initializePlugin();
+  setupSandbox();
 
-  if (isSandbox()) {
-    setupSandbox();
-
-    // akashic-sandbox の場合はモード設定がランキングの場合はセッションパラメータ待機、
-    // それ以外の場合は1人プレイモードとして起動する
-    if (config.game.launch_mode === 'ranking') {
-      initForListenSessionParameter();
-    } else {
-      initForSingle();
-    }
-  } else if (isLocalPlay()) {
-    // ローカルHTML起動の場合は1人プレイモードとして起動する
-    initForSingle();
-  } else {
-    // それ以外（ニコ生）の場合は設定に従って起動する
-    switch (config.game.launch_mode) {
-      case 'ranking': {
-        initForListenSessionParameter();
-        break;
-      }
-      case 'multi': {
-        initForMulti();
-        break;
-      }
-      default: {
-        throw `unknown launch_mode : ${config.game.launch_mode}`;
-      }
-    }
-  }
-}
-
-/**
- * 1人プレイモードとして即時起動する
- */
-function initForSingle() {
-  start({ mode: 'single' });
-}
-
-/**
- * マルチプレイモードとして即時起動する
- */
-function initForMulti() {
-  start({
-    mode: 'multi',
-  });
-}
-
-/**
- * セッションパラメータの購読を開始し、
- * その内容に応じて起動する
- */
-function initForListenSessionParameter() {
+  // 起動メッセージを受け取るためのシーンを作成する
   const scene = new g.Scene({ game: g.game });
   scene.onMessage.add((msg: g.MessageEvent) => {
     if (!msg.data) return;
@@ -71,7 +22,7 @@ function initForListenSessionParameter() {
 }
 
 /**
- * ゲームを開始する
+ * ゲーム開始処理
  * @param params
  */
 function start(params: LaunchParameter) {
@@ -87,6 +38,7 @@ function start(params: LaunchParameter) {
     });
     g.game.scenes.push(scene);
   } else {
+    // ニコ生プレイの場合はそのまま開始
     launch(params);
   }
 }
@@ -98,6 +50,7 @@ function start(params: LaunchParameter) {
  */
 function setupSandbox() {
   if (!isSandbox()) return;
+
   const container = document.getElementById('container');
   if (!container) return;
 
