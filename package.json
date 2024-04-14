@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "@rutan/akashic-template",
   "version": "1.0.0",
   "author": "ru_shalm <ru_shalm@hazimu.com>",

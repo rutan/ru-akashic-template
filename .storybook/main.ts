@@ -1,6 +1,5 @@
 import { mergeConfig } from 'vite';
 import type { StorybookConfig } from "@storybook/html-vite";
-// @ts-ignore
 import viteConfig from '../vite.config';
 
 const config: StorybookConfig = {

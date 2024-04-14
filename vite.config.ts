@@ -23,7 +23,7 @@ export default defineConfig(({}) => {
     build: {
       lib: {
         entry: resolve(paths.src, 'index.ts'),
-        fileName: 'bundle',
+        fileName: () => 'bundle.js',
         formats: ['cjs'],
       },
       outDir: paths.out,

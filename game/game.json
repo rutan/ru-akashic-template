@@ -16,14 +16,14 @@
 			"width": 132,
 			"height": 264
 		},
-		"bundle": {
-			"type": "script",
-			"path": "script/bundle.js",
-			"global": true
-		},
 		"main": {
 			"type": "script",
 			"path": "script/main.js",
+			"global": true
+		},
+		"bundle": {
+			"type": "script",
+			"path": "script/bundle.js",
 			"global": true
 		}
 	},
