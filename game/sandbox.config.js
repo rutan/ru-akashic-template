@@ -1,5 +1,6 @@
 const config = {
   events: {
+    // ブラウザプレイ用のビルド（PLiCyなど）で使用されるメッセージ
     localLaunch: [
       [
         32,

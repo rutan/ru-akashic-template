@@ -15,5 +15,6 @@ export function launch(params: LaunchParameter) {
   // 乱数のシード値が指定されている場合はセットする
   if (params.randomSeed !== undefined) g.game.random.seed = params.randomSeed;
 
+  // 以下、自由にゲームを作ろう！
   SceneManager.changeScene('title');
 }

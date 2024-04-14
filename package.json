@@ -11,7 +11,7 @@
     "build:vite": "cross-env NODE_ENV=production vite build",
     "build:scan": "pnpm run scan",
     "watch": "run-p watch:*",
-    "watch:vite": "vite build -w",
+    "watch:vite": "cross-env NODE_ENV=development vite build -w --mode development",
     "watch:scan": "cross-env JITI_ESM_RESOLVE=1 jiti ./scripts/scanAsset.ts -w",
     "dev": "run-p start watch",
     "dev-serve": "run-p serve watch",
