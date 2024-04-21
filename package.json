@@ -40,12 +40,12 @@
     "eventmit": "^2.0.4"
   },
   "devDependencies": {
-    "@akashic/akashic-cli": "^2.16.64",
+    "@akashic/akashic-cli": "^2.16.65",
     "@akashic/akashic-cli-commons": "^0.14.22",
-    "@akashic/akashic-cli-export": "^1.8.39",
+    "@akashic/akashic-cli-export": "^1.8.40",
     "@akashic/akashic-cli-scan": "^0.16.30",
     "@akashic/akashic-engine-standalone": "^3.17.1",
-    "@akashic/akashic-sandbox": "^0.28.12",
+    "@akashic/akashic-sandbox": "^0.28.13",
     "@biomejs/biome": "^1.7.0",
     "@rutan/deployment-zip": "^0.5.0",
     "@storybook/addon-actions": "^8.0.8",
@@ -69,7 +69,7 @@
     "rimraf": "^5.0.5",
     "storybook": "^8.0.8",
     "typescript": "^5.4.5",
-    "vite": "^5.2.8"
+    "vite": "^5.2.10"
   },
-  "packageManager": "pnpm@8.15.6"
+  "packageManager": "pnpm@8.15.7"
 }
