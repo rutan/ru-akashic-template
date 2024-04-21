@@ -1,7 +1,6 @@
-// @ts-ignore
+import * as path from 'node:path';
 import { promiseExportZip } from '@akashic/akashic-cli-export/lib/zip/exportZip.js';
 import * as mkdirp from 'mkdirp';
-import * as path from 'path';
 import * as packageJSON from '../package.json';
 import { CustomLogger } from './modules/CustomLogger';
 

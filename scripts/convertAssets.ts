@@ -1,7 +1,7 @@
-import { packAsync } from 'free-tex-packer-core';
-import { glob } from 'glob';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join, relative } from 'node:path';
+import { packAsync } from 'free-tex-packer-core';
+import { glob } from 'glob';
 
 const root = join(new URL('.', import.meta.url).pathname, '..');
 const assetsDir = glob.sync(join(root, 'assets', '*')).sort();
@@ -57,14 +57,14 @@ const exporter = {
         prependFolderName: true,
       });
 
-      ret.forEach((file) => {
+      for (const file of ret) {
         if (file.name.endsWith('.json')) {
           writeFileSync(join(jsonDir, file.name), file.buffer);
           return;
         }
 
         writeFileSync(join(pngDir, file.name), file.buffer);
-      });
+      }
 
       return {
         assetName,

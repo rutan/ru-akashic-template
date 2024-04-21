@@ -33,7 +33,6 @@ corepack enable pnpm
 ```
 ├ _dist/        … ニコ生などに投稿するzipファイルが出てくる場所
 ├ assets/       … テクスチャ画像置き場（後述）
-├ extensions/   … eslintなどのカスタムルール置き場
 ├ game/         … ゲーム本体
 ├ static/       … Webビルド時に一緒に含めるファイル置き場
 ├ scripts/      … ゲーム本体以外のコード
@@ -79,6 +78,20 @@ $ pnpm run deploy:nicolive
 
 ## 各種あれこれ
 
+### lint / formatter について
+
+biome を使っています。
+
+```
+# 自動修正
+$ pnpm run format
+
+# lintの実行
+$ pnpm run lint
+```
+
+また、コミット時に自動的に lint が実行されるようになっています。
+
 ### modules 内の依存関係について
 
 `src/modules` 内はシーンごとにディレクトリを作成することを想定しています。  
@@ -93,8 +106,6 @@ src/modules/result   … リザルトシーンのコード
 ```
 
 原則として modules 内のコードは他のシーン用のコードを読み込んではいけません。
-例えば `src/modules/play` 内から `src/modules/title` 内のコードを import すると、 eslint で設定されたカスタムルールである `no-import-other-scene-modules` によってエラーとなります。
-
 複数のシーンにまたがって利用するコードは、必ず `src/modules/_share` に設置してください。
 
 ### テクスチャ画像について

@@ -12,14 +12,14 @@ export function mount<T>(mountFunc: (params: T) => g.E) {
     const destroyFunc = AE.initialize({
       canvas,
       configuration: gameJson as AE.GameConfiguration,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny: バージョンによる型の不一致を回避するため
       mainFunc(g: any) {
         const scene = new g.Scene({
           game: g.game,
           assetIds: [],
           assetPaths: ['/assets/**/*'],
         });
-        scene.onLoad.addOnce(function () {
+        scene.onLoad.addOnce(() => {
           const entity = mountFunc({ ...params, scene });
           scene.append(entity);
         });

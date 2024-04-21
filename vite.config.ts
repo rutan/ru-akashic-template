@@ -1,16 +1,15 @@
-import { resolve } from 'node:path';
-import path from 'path';
+import { join, resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import { version } from './package.json';
 
-export default defineConfig(({}) => {
+export default defineConfig((_) => {
   const paths = (() => {
     const root = new URL('.', import.meta.url).pathname;
     return {
       root,
-      src: path.join(root, 'src'),
-      out: path.join(root, 'game', 'script'),
-      nodeModules: path.join(root, 'node_modules'),
+      src: join(root, 'src'),
+      out: join(root, 'game', 'script'),
+      nodeModules: join(root, 'node_modules'),
     };
   })();
 
@@ -32,13 +31,13 @@ export default defineConfig(({}) => {
     },
     resolve: {
       alias: {
-        $types: path.join(paths.src, 'types'),
-        $constants: path.join(paths.src, 'constants'),
-        $assets: path.join(paths.src, 'assets'),
-        $libs: path.join(paths.src, 'libs'),
-        $data: path.join(paths.src, 'data'),
-        $share: path.join(paths.src, 'modules', '_share'),
-        $storybook: path.join(paths.src, '_storybook'),
+        $types: join(paths.src, 'types'),
+        $constants: join(paths.src, 'constants'),
+        $assets: join(paths.src, 'assets'),
+        $libs: join(paths.src, 'libs'),
+        $data: join(paths.src, 'data'),
+        $share: join(paths.src, 'modules', '_share'),
+        $storybook: join(paths.src, '_storybook'),
       },
     },
     define: {

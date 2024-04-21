@@ -1,5 +1,5 @@
-import { close, Encoder, isLocalPlay, IStorage, MockStorage, WebStorage } from '$libs';
-import { SaveData } from '../entities';
+import { type Encoder, type IStorage, MockStorage, WebStorage, clone, isLocalPlay } from '$libs';
+import type { SaveData } from '../entities';
 
 /**
  * ローカルプレイ用のセーブ管理マネージャー
@@ -17,7 +17,7 @@ class SaveManagerClass {
    */
   setup(gameKey: string, initialData: SaveData, customEncoder?: Encoder<SaveData>) {
     this._initialData = initialData;
-    this._data = close(initialData);
+    this._data = clone(initialData);
 
     if (isLocalPlay()) {
       this._storage = new WebStorage(gameKey, { customEncoder });
@@ -52,7 +52,10 @@ class SaveManagerClass {
    * ゲームのロードを実行（Promise版）
    */
   loadWithPromise(): Promise<void> {
-    return this._storage.load().then((data) => (this._data = data || close(this._initialData)));
+    return this._storage.load().then((data) => {
+      this._data = data || clone(this._initialData);
+      return this._data;
+    });
   }
 
   /**

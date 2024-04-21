@@ -1,23 +1,18 @@
+import type { StorybookConfig } from '@storybook/html-vite';
 import { mergeConfig } from 'vite';
-import type { StorybookConfig } from "@storybook/html-vite";
 import viteConfig from '../vite.config';
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(js|mjs|ts)"],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-  ],
+  stories: ['../src/**/*.stories.@(js|mjs|ts)'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   core: {},
   framework: {
-    name: "@storybook/html-vite",
+    name: '@storybook/html-vite',
     options: {},
   },
-  staticDirs: [
-    "../game"
-  ],
+  staticDirs: ['../game'],
   docs: {
-    autodocs: "tag",
+    autodocs: 'tag',
   },
   async viteFinal(config) {
     const appConfig = viteConfig({
@@ -29,13 +24,13 @@ const config: StorybookConfig = {
       resolve: {
         alias: {
           ...(config.resolve?.alias || []),
-          ...(appConfig.resolve?.alias || [])
+          ...(appConfig.resolve?.alias || []),
         },
       },
       define: {
         ...(config.define || {}),
-        ...(appConfig.define || {})
-      }
+        ...(appConfig.define || {}),
+      },
     });
   },
 };

@@ -1,4 +1,4 @@
-import { IStorage } from './IStorage';
+import type { IStorage } from './IStorage';
 
 export class MockStorage<T> implements IStorage<T> {
   load() {

@@ -1,5 +1,5 @@
-import { IStorage } from './IStorage';
-import { createJsonEncoder, Encoder } from './encoder';
+import type { IStorage } from './IStorage';
+import { type Encoder, createJsonEncoder } from './encoder';
 
 export class WebStorage<T> implements IStorage<T> {
   private readonly _storageKey: string;

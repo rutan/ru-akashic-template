@@ -8,6 +8,6 @@ export function nonNullable<T>(n: T): n is NonNullable<T> {
   return n !== null;
 }
 
-export function close<T>(data: T): T {
+export function clone<T>(data: T): T {
   return JSON.parse(JSON.stringify(data));
 }

@@ -1,5 +1,5 @@
-import { defineConfig } from '@rutan/deployment-zip';
 import { resolve } from 'node:path';
+import { defineConfig } from '@rutan/deployment-zip';
 import * as packageJSON from './package.json';
 
 const gameName = (packageJSON.name.split('/').pop() ?? '').replace(/\//g, '_');

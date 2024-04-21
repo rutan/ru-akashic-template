@@ -1,15 +1,14 @@
+import * as path from 'node:path';
 import { ConsoleLogger } from '@akashic/akashic-cli-commons';
-// @ts-ignore
 import { promiseExportHTML } from '@akashic/akashic-cli-export/lib/html/exportHTML.js';
-// @ts-ignore
 import { copySync } from 'cpx2';
 import * as mkdirp from 'mkdirp';
-import * as path from 'path';
 import * as rimraf from 'rimraf';
 
 const INJECT_HTML_NAME = 'inject.html';
 
 class CustomLogger extends ConsoleLogger {
+  // biome-ignore lint/suspicious/noExplicitAny: AkashicEngine自体の型定義が any のため
   warn(message: string, cause?: any) {
     if (message.startsWith('The following ES5 syntax errors exist')) return;
     if (message.startsWith('Non-ES5 syntax found')) return;

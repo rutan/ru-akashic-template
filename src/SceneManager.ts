@@ -1,4 +1,4 @@
-import { BaseScene, SceneEvent } from '$share';
+import type { BaseScene, SceneEvent } from '$share';
 import { SampleScene } from './modules/sample';
 
 class SceneManagerClass {

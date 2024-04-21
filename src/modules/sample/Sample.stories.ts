@@ -1,8 +1,8 @@
+import { assetsSample1, createWithAsset } from '$assets';
 import { mount } from '$storybook';
 import { Converter } from '@akashic-extension/akashic-hover-plugin';
 import { action } from '@storybook/addon-actions';
-import { StoryObj, Meta } from '@storybook/html';
-import { assetsSample1, createWithAsset } from '$assets';
+import type { Meta, StoryObj } from '@storybook/html';
 
 type Props = g.SpriteParameterObject & {
   name: 'a' | 'ru';

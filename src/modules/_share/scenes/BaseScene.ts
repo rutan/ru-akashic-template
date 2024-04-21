@@ -1,5 +1,5 @@
-import { splitEventmit, SplitEventmitter } from '$libs';
-import { SceneEvent } from './SceneEvent';
+import { type SplitEventmitter, splitEventmit } from '$libs';
+import type { SceneEvent } from './SceneEvent';
 
 /**
  * すべてのシーンの基底クラス

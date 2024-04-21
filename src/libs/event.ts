@@ -1,4 +1,4 @@
-import { eventmit, Eventmitter } from 'eventmit';
+import { type Eventmitter, eventmit } from 'eventmit';
 
 export interface SplitEventmitter<T> {
   emit: Eventmitter<T>['emit'];

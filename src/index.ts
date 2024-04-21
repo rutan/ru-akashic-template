@@ -2,7 +2,7 @@ import { isDevelopment, isLocalPlay, isSandbox } from '$libs';
 import { SaveManager } from '$share';
 import { config } from './config';
 import { initializePlugin } from './initializePlugin';
-import { launch, LaunchParameter } from './launch';
+import { type LaunchParameter, launch } from './launch';
 
 export function main(_params: g.GameMainParameterObject) {
   // 初期化
@@ -67,7 +67,7 @@ function setupSandbox() {
     container.style.transform = `scale(${rate})`;
     container.style.transformOrigin = 'left top';
     if (rate < 1.0) {
-      container.style.top = `30px`;
+      container.style.top = '30px';
     } else {
       container.style.top = '0';
     }
