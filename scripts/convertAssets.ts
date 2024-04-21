@@ -8,7 +8,7 @@ const assetsDir = glob.sync(join(root, 'assets', '*')).sort();
 const pngDir = join(root, 'game', 'assets', 'textures');
 const jsonDir = join(root, 'src', 'assets', 'textures');
 
-const nonNullableFilter = <T>(value: T | null): value is T => value !== null;
+const nonNullableFilter = <T>(value: T | null | undefined): value is T => value !== null && value !== undefined;
 const exporter = {
   fileExt: 'json',
   content: `
@@ -60,7 +60,7 @@ const exporter = {
       for (const file of ret) {
         if (file.name.endsWith('.json')) {
           writeFileSync(join(jsonDir, file.name), file.buffer);
-          return;
+          continue;
         }
 
         writeFileSync(join(pngDir, file.name), file.buffer);
