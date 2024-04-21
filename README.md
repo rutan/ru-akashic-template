@@ -155,3 +155,31 @@ $ pnpm run storybook
 Web 向けビルドに生成される zip ファイルの中に static ディレクトリ内のファイルを含むことができます。ニコ生ゲーム向けビルドには含まれません。
 
 ここには favicon などの Web 公開時に必要となるファイルを設置することを想定しています。
+
+### セーブデータについて
+
+`SaveManager` を呼び出すことで、ゲーム中にセーブを行うことができます。
+
+イメージとしてはオートセーブ機能のようなもので、ゲームに1つのセーブファイルのみが存在するという前提のもと実装されています。なお、ロードについてはゲーム起動時に自動的に実行されます。
+
+```typescript
+import { SaveManager } from '$share';
+
+class MyScene extends g.Scene {
+  myFunction() {
+    // セーブしたい情報を data に入れる
+    SaveManager.data = {
+      highScore: 12345
+    };
+
+    // セーブの実行
+    SaveManager.save(this, (error) => {
+      if (error) {
+        // エラーが発生した場合の処理
+      }
+    });
+  }
+}
+```
+
+PLiCyなどのローカルプレイの場合は localStorage が使用されます。ニコ生上でのプレイ時にはダミーのモックストレージが利用されるため、実際にはセーブは行われません。
