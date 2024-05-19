@@ -1,4 +1,4 @@
-import { readFileSync, statSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join, relative } from 'node:path';
 import { packAsync } from 'free-tex-packer-core';
 import { glob } from 'glob';
@@ -28,6 +28,9 @@ const exporter = {
 };
 
 (async () => {
+  mkdirSync(jsonDir, { recursive: true });
+  mkdirSync(pngDir, { recursive: true });
+
   const result = await Promise.all(
     assetsDir.map(async (dir) => {
       if (!statSync(dir).isDirectory()) return null;
