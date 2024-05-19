@@ -2,7 +2,4 @@
 import * as assetsSample1 from './sample1.json';
 import * as assetsSample2 from './sample2.json';
 
-export {
-  assetsSample1,
-  assetsSample2,
-};
+export { assetsSample1, assetsSample2 };

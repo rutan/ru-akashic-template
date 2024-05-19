@@ -1,7 +1,7 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.7.0/schema.json",
   "files": {
-    "ignore": ["assets/**/*", "game/**/*", "static/**/*", "pnpm-lock.yaml"]
+    "ignore": ["game/**/*", "static/**/*", "pnpm-lock.yaml"]
   },
   "vcs": {
     "enabled": true,

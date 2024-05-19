@@ -15,14 +15,14 @@ export interface AssetInfo {
   frame: Frame;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: any
 export function createWithAsset<T extends new (args: any) => any, U extends AssetJson>(
   scene: g.Scene,
   entityClass: T,
   assets: U,
   key: keyof U['frames'],
   options?: Omit<ConstructorParameters<T>[0], 'scene' | 'src' | 'srcX' | 'srcY' | 'width' | 'height'>,
-) {
+): InstanceType<T> {
   const info = assetInfo(assets, key);
   return new entityClass(
     Object.assign(
@@ -51,5 +51,15 @@ export function applyAssetInfo(e: g.Sprite, assetInfo: AssetInfo) {
   e.srcHeight = assetInfo.frame.height;
   e.width = assetInfo.frame.width;
   e.height = assetInfo.frame.height;
+  e.modified();
+}
+
+export function applyAssetFrame(e: g.Sprite, frame: Frame) {
+  e.srcX = frame.srcX;
+  e.srcY = frame.srcY;
+  e.srcWidth = frame.width;
+  e.srcHeight = frame.height;
+  e.width = frame.width;
+  e.height = frame.height;
   e.modified();
 }
