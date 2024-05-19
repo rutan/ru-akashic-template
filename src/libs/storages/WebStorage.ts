@@ -27,6 +27,7 @@ export class WebStorage<T> implements IStorage<T> {
       try {
         return this._encoder.encode(data).then((encodeData) => {
           localStorage.setItem(this._storageKey, encodeData);
+          resolve();
         });
       } catch (e) {
         console.error(e);
