@@ -15,13 +15,14 @@ async function archiveForNicoLive(source: string, dest: string) {
     babel: false,
     minify: false,
     minifyJs: false,
-    minifyJson: true,
+    minifyJson: false,
     packImage: false,
-    strip: false,
+    strip: true,
     hashLength: 20,
     omitUnbundledJs: false,
     targetService: 'nicolive',
     nicolive: true,
+    resolveAkashicRuntime: true,
   });
 }
 
