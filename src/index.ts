@@ -4,7 +4,7 @@ import { config } from './config';
 import { initializePlugin } from './initializePlugin';
 import { type LaunchParameter, launch } from './launch';
 
-export function main(_params: g.GameMainParameterObject) {
+export function main(params: g.GameMainParameterObject) {
   // 初期化
   SaveManager.setup(config.storage.prefix, {});
   initializePlugin();
@@ -15,32 +15,47 @@ export function main(_params: g.GameMainParameterObject) {
   scene.onMessage.add((msg: g.MessageEvent) => {
     if (!msg.data) return;
     if (msg.data.type !== 'start') return;
+    if (isDevelopment()) console.log(params, msg.data.parameters);
 
-    start(msg.data.parameters || {});
+    if (isLocalPlay()) {
+      setupLocalPlay({ gameParams: params, launchParams: msg.data.parameters });
+    } else {
+      launch({ gameParams: params, launchParams: msg.data.parameters });
+    }
   });
   g.game.pushScene(scene);
 }
 
 /**
- * ゲーム開始処理
- * @param params
+ * ローカルプレイ用の初期化処理
+ * セーブデータの読み込みを行う
  */
-function start(params: LaunchParameter) {
-  if (isDevelopment()) console.log('launchParameter', params);
+function setupLocalPlay({
+  gameParams,
+  launchParams,
+}: { gameParams: g.GameMainParameterObject; launchParams: LaunchParameter }) {
+  const SAVE_LOAD_EVENT_NAME = '__setupLocalPlay__';
 
-  if (isLocalPlay()) {
-    // ローカル起動の場合はセーブデータを読み込む
-    const scene = new g.Scene({ game: g.game });
-    SaveManager.load(scene, () => {
-      if (isDevelopment()) console.log('SaveManager', SaveManager.data);
-      g.game.scenes.pop();
-      launch(params);
+  const saveLoadScene = new g.Scene({ game: g.game, tickGenerationMode: 'manual' });
+  saveLoadScene.onMessage.add((msg: g.MessageEvent) => {
+    if (!msg.data) return;
+    if (msg.data.type !== SAVE_LOAD_EVENT_NAME) return;
+    SaveManager.importData(msg.data.saveData);
+    launch({ gameParams, launchParams });
+  });
+
+  saveLoadScene.onLoad.add(() => {
+    SaveManager.storage.load().then((saveData) => {
+      g.game.raiseTick([
+        new g.MessageEvent({
+          type: SAVE_LOAD_EVENT_NAME,
+          saveData,
+        }),
+      ]);
     });
-    g.game.scenes.push(scene);
-  } else {
-    // ニコ生プレイの場合はそのまま開始
-    launch(params);
-  }
+  });
+
+  g.game.pushScene(saveLoadScene);
 }
 
 /**

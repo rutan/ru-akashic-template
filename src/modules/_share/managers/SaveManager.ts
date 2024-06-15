@@ -7,7 +7,6 @@ import type { SaveData } from '../entities';
 class SaveManagerClass {
   private _storage: IStorage<SaveData> = new MockStorage();
   private _data: SaveData = {};
-  private _initialData: SaveData = {};
 
   /**
    * 初期化
@@ -16,7 +15,6 @@ class SaveManagerClass {
    * @param customEncoder
    */
   setup(gameKey: string, initialData: SaveData, customEncoder?: Encoder<SaveData>) {
-    this._initialData = initialData;
     this._data = clone(initialData);
 
     if (isLocalPlay()) {
@@ -34,49 +32,23 @@ class SaveManagerClass {
   }
 
   /**
-   * ゲームのロードを実行
-   * @param scene
-   * @param callback
+   * ストレージ
    */
-  load(scene: g.Scene, callback: (e: Error | undefined) => void) {
-    this.loadWithPromise()
-      .then(() => {
-        scene.setTimeout(() => callback(undefined), 0);
-      })
-      .catch((e) => {
-        scene.setTimeout(() => callback(e), 0);
-      });
+  get storage() {
+    return this._storage;
   }
 
   /**
-   * ゲームのロードを実行（Promise版）
+   * ゲームのセーブデータの値をインポート
    */
-  loadWithPromise(): Promise<void> {
-    return this._storage.load().then((data) => {
-      this._data = data || clone(this._initialData);
-      return this._data;
-    });
+  importData(saveData: SaveData) {
+    this._data = saveData;
   }
 
   /**
-   * ゲームのセーブを実行
-   * @param scene
-   * @param callback
+   * ゲームのセーブを実行（非同期）
    */
-  save(scene: g.Scene, callback: (e: Error | undefined) => void) {
-    this.saveWithPromise()
-      .then(() => {
-        scene.setTimeout(() => callback(undefined), 0);
-      })
-      .catch((e) => {
-        scene.setTimeout(() => callback(e), 0);
-      });
-  }
-
-  /**
-   * ゲームのセーブを実行（Promise版）
-   */
-  saveWithPromise(): Promise<void> {
+  save(): Promise<void> {
     return this._storage.save(this._data);
   }
 }

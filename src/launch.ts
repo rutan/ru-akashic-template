@@ -11,9 +11,14 @@ export interface LaunchParameter {
 /**
  * ゲーム起動時に呼び出される関数
  */
-export function launch(params: LaunchParameter) {
+export function launch({
+  launchParams,
+}: {
+  gameParams: g.GameMainParameterObject;
+  launchParams: LaunchParameter;
+}) {
   // 乱数のシード値が指定されている場合はセットする
-  if (params.randomSeed !== undefined) g.game.random.seed = params.randomSeed;
+  if (launchParams.randomSeed !== undefined) g.game.random.seed = launchParams.randomSeed;
 
   // 以下、自由にゲームを作ろう！
   SceneManager.changeScene('title');
