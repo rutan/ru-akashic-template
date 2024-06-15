@@ -9,11 +9,21 @@ export function mount<T>(mountFunc: (params: T) => g.E) {
   return (params: T) => {
     const canvas = document.createElement('canvas');
 
-    const destroyFunc = AE.initialize({
+    // biome-ignore lint/suspicious/noExplicitAny: グローバルキャッシュのため
+    const win = window as any;
+
+    if (win.destroyFunc) {
+      win.destroyFunc();
+      win.destroyFunc = null;
+    }
+
+    win.destroyFunc = AE.initialize({
       canvas,
       configuration: gameJson as AE.GameConfiguration,
       // biome-ignore lint/suspicious/noExplicitAny: バージョンによる型の不一致を回避するため
       mainFunc(g: any) {
+        window.g = g;
+
         const scene = new g.Scene({
           game: g.game,
           assetIds: [],
@@ -25,10 +35,6 @@ export function mount<T>(mountFunc: (params: T) => g.E) {
         });
         g.game.pushScene(scene);
       },
-    });
-
-    window.addEventListener('beforeunload', () => {
-      destroyFunc();
     });
 
     return canvas;
