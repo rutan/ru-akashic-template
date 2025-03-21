@@ -1,6 +1,6 @@
+import { mkdir } from 'node:fs/promises';
 import * as path from 'node:path';
 import { promiseExportZip } from '@akashic/akashic-cli-export/lib/zip/exportZip.js';
-import * as mkdirp from 'mkdirp';
 import * as packageJSON from '../package.json';
 import { CustomLogger } from './modules/CustomLogger';
 
@@ -45,7 +45,7 @@ async function archiveForNicoLive(source: string, dest: string) {
   const source = path.resolve('.', 'game');
   const distDir = path.resolve('.', '_dist');
 
-  mkdirp.sync(distDir);
+  await mkdir(distDir, { recursive: true });
 
   await archiveForNicoLive(source, path.resolve(distDir, outputName));
 })();

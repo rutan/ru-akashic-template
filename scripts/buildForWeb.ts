@@ -1,9 +1,7 @@
+import { cp, mkdir, rm } from 'node:fs/promises';
 import * as path from 'node:path';
 import { ConsoleLogger } from '@akashic/akashic-cli-commons';
 import { promiseExportHTML } from '@akashic/akashic-cli-export/lib/html/exportHTML.js';
-import { copySync } from 'cpx2';
-import * as mkdirp from 'mkdirp';
-import * as rimraf from 'rimraf';
 
 const INJECT_HTML_NAME = 'inject.html';
 
@@ -40,7 +38,7 @@ async function buildForWeb(source: string, staticDir: string, distDir: string) {
     autoSendEventName: 'localLaunch',
   });
 
-  copySync(path.resolve(staticDir, '**', '*'), distDir);
+  await cp(staticDir, distDir, { recursive: true });
 }
 
 (async () => {
@@ -48,8 +46,8 @@ async function buildForWeb(source: string, staticDir: string, distDir: string) {
   const staticDir = path.resolve('.', 'static');
   const distDir = path.resolve('.', 'tmp', '_build');
 
-  rimraf.sync(distDir);
-  mkdirp.sync(distDir);
+  await rm(distDir, { recursive: true });
+  await mkdir(distDir, { recursive: true });
 
   await buildForWeb(source, staticDir, distDir);
 })();
