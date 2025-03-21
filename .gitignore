@@ -1,4 +1,6 @@
 /_dist
 /tmp
+/storybook-static
 /game/script/bundle.js
 *.log
+~*

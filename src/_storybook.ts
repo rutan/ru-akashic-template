@@ -1,5 +1,6 @@
 import * as AE from '@akashic/akashic-engine-standalone';
 import * as gameJson from '../game/game.json';
+import { initializePlugin } from './initializePlugin';
 
 /**
  * Storybookのrenderに渡す関数を生成する
@@ -13,7 +14,11 @@ export function mount<T>(mountFunc: (params: T) => g.E) {
     const win = window as any;
 
     if (win.destroyFunc) {
-      win.destroyFunc();
+      try {
+        win.destroyFunc();
+      } catch (e) {
+        console.error(e);
+      }
       win.destroyFunc = null;
     }
 
@@ -29,6 +34,7 @@ export function mount<T>(mountFunc: (params: T) => g.E) {
           assetIds: [],
           assetPaths: ['/assets/**/*'],
         });
+        initializePlugin();
         scene.onLoad.addOnce(() => {
           const entity = mountFunc({ ...params, scene });
           scene.append(entity);
