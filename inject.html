@@ -1,6 +1,49 @@
+<!-- [inject customize code] -->
 <script>
   window.Toripota = window.Toripota || {};
   window.Toripota.isWeb = true;
+
+  // Akashic pdi-browser のスマホタッチ問題の回避策
+  // - https://github.com/akashic-games/pdi-browser/pull/306
+  // - https://github.com/akashic-games/pdi-browser/pull/315
+  //
+  // Galaxy S24 で動作確認。
+  // Android Chrome 138 および Android Edge 138 でタッチが正常に動作しない問題の回避コード。
+  // #315 のコミットで canvas のサイズ変更イベントを検知するようになっているが、
+  // Android Chrome においては初回表示時にサイズ変更イベントが発火しておらず、該当コードが実行されない。
+  // また、Android Edge ではタブの切替時に DOM への style 設定が無視される問題がある。
+  // （※タブの縮小表示中の挙動が怪しい？）
+  //
+  // #315 のコードでは、DOMの width / height / style の変更を検知しているため、
+  // ここでは DOM の style (fontSize) を変更することで、強制的にイベントを発火させる。
+  // 発火タイミングは「ページ読み込み時（Chrome用）」と「タブの切替時（Edge用）」。
+  // ただし、Edge はこれでも完全回避はできず、
+  // 「他のタブを閉じてゲームタブがアクティブになる」場合は動かない。
+  const setupFunc = () => {
+    const canvas = document.querySelector('canvas');
+    if (!canvas) return;
+    window.clearInterval(setupTimer);
+
+    // fontSize を変更して、サイズ変更イベントを発火させる
+    let dummyValue = 0;
+    function updateValue() {
+      canvas.style.fontSize = `${10 + dummyValue}px`;
+      dummyValue = (dummyValue + 1) % 10;
+    }
+
+    // 初回表示時に fontSize を更新（Chrome用）
+    updateValue();
+
+    // タブがアクティブになったときに fontSize を更新（Edge用）
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== 'visible') return;
+
+      // 直ちに更新すると反映されないため、少し待って反映する
+      // なんか良い方法が欲しい
+      setTimeout(updateValue, 100);
+    });
+  };
+  let setupTimer = window.setInterval(setupFunc, 200);
 </script>
 <style>
   body {
