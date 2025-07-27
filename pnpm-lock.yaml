@@ -17,6 +17,9 @@ importers:
       '@akashic/akashic-engine':
         specifier: ^3.21.0
         version: 3.21.0
+      '@rutan/frame-tween':
+        specifier: ^0.7.0
+        version: 0.7.0
       eventmit:
         specifier: ^3.0.0
         version: 3.0.0
@@ -1492,6 +1495,10 @@ packages:
   '@rutan/deployment-zip@0.5.0':
     resolution: {integrity: sha512-i5z7gYqGeajuaxhDVNfsjqJX/XmzVX2P9a3JhKr8yydvbl9tckM6RwHSiwUJWA1BoAbm1ZYfuDEwjckBO90WBQ==}
     hasBin: true
+
+  '@rutan/frame-tween@0.7.0':
+    resolution: {integrity: sha512-vFvbhm5+4/SVdZvP/eIoYI2TXg1rNSh+8RMhvEgQQOlS8IKd/ctlqMSqTgArYJa/6GKCg5H0KCcB3IW+WMyNog==}
+    engines: {node: '>=18.12.0'}
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -6428,6 +6435,8 @@ snapshots:
       node-html-parser: 6.1.13
     transitivePeerDependencies:
       - aws-crt
+
+  '@rutan/frame-tween@0.7.0': {}
 
   '@sec-ant/readable-stream@0.4.1': {}
 

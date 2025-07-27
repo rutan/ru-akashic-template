@@ -24,16 +24,12 @@ export function createWithAsset<T extends new (args: any) => any, U extends Asse
   options?: Omit<ConstructorParameters<T>[0], 'scene' | 'src' | 'srcX' | 'srcY' | 'width' | 'height'>,
 ): InstanceType<T> {
   const info = assetInfo(assets, key);
-  return new entityClass(
-    Object.assign(
-      {
-        scene,
-        src: scene.asset.getImage(info.path),
-      },
-      info.frame,
-      options || {},
-    ),
-  );
+  return new entityClass({
+    scene,
+    src: scene.asset.getImage(info.path),
+    ...info.frame,
+    ...(options || {}),
+  });
 }
 
 export function assetInfo<T extends AssetJson>(assets: T, key: keyof T['frames']): AssetInfo {

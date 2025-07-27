@@ -38,6 +38,7 @@
     "@akashic-extension/akashic-hover-plugin": "^3.2.3",
     "@akashic-extension/resolve-player-info": "^1.3.0",
     "@akashic/akashic-engine": "^3.21.0",
+    "@rutan/frame-tween": "^0.7.0",
     "eventmit": "^3.0.0"
   },
   "devDependencies": {
