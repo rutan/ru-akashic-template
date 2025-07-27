@@ -163,11 +163,13 @@ Web 向けビルドに生成される zip ファイルの中に static ディレ
 イメージとしてはオートセーブ機能のようなもので、ゲームに1つのセーブファイルのみが存在するという前提のもと実装されています。なお、ロードについてはゲーム起動時に自動的に実行されます。
 
 ```typescript
-import { SaveManager } from '$share';
+import { getManagers } from '$share';
 
 class MyScene extends g.Scene {
   myFunction() {
-    // セーブしたい情報を data に入れる
+    const { SaveManager } = getManagers();
+
+// セーブしたい情報を data に入れる
     SaveManager.data = {
       highScore: 12345
     };
