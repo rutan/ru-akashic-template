@@ -1,3 +1,3 @@
 export * from './entities';
-export * from './scenes';
 export * from './managers';
+export * from './scenes';

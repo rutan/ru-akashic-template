@@ -33,7 +33,10 @@ export function main(params: g.GameMainParameterObject) {
 function setupLocalPlay({
   gameParams,
   launchParams,
-}: { gameParams: g.GameMainParameterObject; launchParams: LaunchParameter }) {
+}: {
+  gameParams: g.GameMainParameterObject;
+  launchParams: LaunchParameter;
+}) {
   const SAVE_LOAD_EVENT_NAME = '__setupLocalPlay__';
 
   const saveLoadScene = new g.Scene({ game: g.game, tickGenerationMode: 'manual' });

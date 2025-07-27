@@ -1,26 +1,30 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.7.0/schema.json",
-  "files": {
-    "ignore": [
-      // static files
-      "assets-pack/**/*",
-      "game/**/*",
-      "static/**/*",
-
-      // generated files
-      "src/assets/textures/*",
-
-      // pnpm
-      "pnpm-lock.yaml"
-    ]
-  },
+  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
   },
-  "organizeImports": {
-    "enabled": true
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "**/*",
+
+      // vscode
+      "!.vscode/**/*",
+
+      // static files
+      "!game/**/*",
+      "!static/**/*",
+
+      // pnpm
+      "!package.json",
+      "!pnpm-lock.yaml",
+      "!patches/**/*",
+
+      // claude
+      "!./claude/**/*"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -28,17 +32,35 @@
     "indentWidth": 2,
     "lineWidth": 120
   },
-  "javascript": {
-    "formatter": {
-      "quoteStyle": "single"
-    }
-  },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "complexity": {
         "noForEach": "off"
+      },
+      "correctness": {
+        "noUnusedPrivateClassMembers": "off"
+      },
+      "suspicious": {
+        // Object.prototype.hasOwnProperty -> Object.hasOwn に書き換えてしまうのは困るので無効化
+        "noPrototypeBuiltins": "off"
+      },
+      "style": {
+        "noUselessElse": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
       }
     }
   }

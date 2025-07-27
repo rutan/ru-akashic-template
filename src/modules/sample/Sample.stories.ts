@@ -1,8 +1,8 @@
+import { Converter } from '@akashic-extension/akashic-hover-plugin';
+import type { Meta, StoryObj } from '@storybook/html';
+import { action } from 'storybook/actions';
 import { assetsSample1, createWithAsset } from '$assets';
 import { mount } from '$storybook';
-import { Converter } from '@akashic-extension/akashic-hover-plugin';
-import { action } from '@storybook/addon-actions';
-import type { Meta, StoryObj } from '@storybook/html';
 
 type Props = g.SpriteParameterObject & {
   name: 'a' | 'ru';
@@ -11,6 +11,7 @@ type Props = g.SpriteParameterObject & {
 const meta = {
   title: 'sample/Sample',
   render: mount((params) => {
+    action;
     const sprite = createWithAsset(params.scene, g.Sprite, assetsSample1, params.name, {
       ...params,
       touchable: true,

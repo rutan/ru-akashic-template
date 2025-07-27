@@ -1,47 +1,32 @@
-import * as AE from '@akashic/akashic-engine-standalone';
-import * as gameJson from '../game/game.json';
-import { initializePlugin } from './initializePlugin';
-
 /**
  * Storybookのrenderに渡す関数を生成する
  * @param mountFunc
  */
 export function mount<T>(mountFunc: (params: T) => g.E) {
   return (params: T) => {
-    const canvas = document.createElement('canvas');
-
-    // biome-ignore lint/suspicious/noExplicitAny: グローバルキャッシュのため
-    const win = window as any;
-
-    if (win.destroyFunc) {
-      try {
-        win.destroyFunc();
-      } catch (e) {
-        console.error(e);
-      }
-      win.destroyFunc = null;
+    // AkashicEngineで使うcanvasを取得
+    const canvas = document.getElementById('akashic-storybook-canvas') as HTMLCanvasElement;
+    if (!canvas) {
+      throw new Error('Canvas not found');
     }
 
-    win.destroyFunc = AE.initialize({
-      canvas,
-      configuration: gameJson as AE.GameConfiguration,
-      // biome-ignore lint/suspicious/noExplicitAny: バージョンによる型の不一致を回避するため
-      mainFunc(g: any) {
-        window.g = g;
-
-        const scene = new g.Scene({
-          game: g.game,
-          assetIds: [],
-          assetPaths: ['/assets/**/*'],
-        });
-        initializePlugin();
-        scene.onLoad.addOnce(() => {
-          const entity = mountFunc({ ...params, scene });
-          scene.append(entity);
-        });
-        g.game.pushScene(scene);
-      },
+    const scene = new g.Scene({
+      game: g.game,
+      assetIds: [],
+      assetPaths: ['/assets/**/*'],
     });
+    scene.onLoad.addOnce(() => {
+      const entity = mountFunc({ ...params, scene });
+      scene.append(entity);
+    });
+
+    // 既にシーンがある場合はreplaceSceneを使う
+    // ※ g.game.scenes[0] は AkashicEngine 自体が使うシーンなので replace しない
+    if (g.game.scenes.length > 1) {
+      g.game.replaceScene(scene);
+    } else {
+      g.game.pushScene(scene);
+    }
 
     return canvas;
   };

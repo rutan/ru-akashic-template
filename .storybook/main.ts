@@ -1,36 +1,48 @@
+import { join } from 'node:path';
 import type { StorybookConfig } from '@storybook/html-vite';
-import { mergeConfig } from 'vite';
+import { mergeConfig, normalizePath } from 'vite';
 import viteConfig from '../vite.config';
+
+const dirname = typeof __dirname !== 'undefined' ? __dirname : new URL('.', import.meta.url).pathname;
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|mjs|ts)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   core: {},
   framework: {
     name: '@storybook/html-vite',
     options: {},
   },
-  staticDirs: ['../game'],
-  docs: {
-    autodocs: 'tag',
-  },
-  async viteFinal(config) {
+  staticDirs: ['../game', '../static'],
+  async viteFinal(config, { configType }) {
     const appConfig = viteConfig({
       command: 'serve',
-      mode: 'development',
+      mode: configType === 'PRODUCTION' ? 'production' : 'development',
     });
 
     return mergeConfig(config, {
       resolve: {
         alias: {
-          ...(config.resolve?.alias || []),
           ...(appConfig.resolve?.alias || []),
         },
       },
       define: {
-        ...(config.define || {}),
         ...(appConfig.define || {}),
       },
+      plugins: [
+        ...(appConfig.plugins || []),
+        // game/assets 以下が更新された場合はフルリロードする
+        {
+          name: 'asset-reload',
+          apply: 'serve',
+          hotUpdate({ file }) {
+            if (file.startsWith(normalizePath(join(dirname, '../game/assets/')))) {
+              console.log(`HMR triggered for: ${file}`);
+              this.environment.hot.send({ type: 'full-reload' });
+              return [];
+            }
+          },
+        },
+      ],
     });
   },
 };
