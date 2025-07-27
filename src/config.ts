@@ -3,7 +3,7 @@ interface Config {
     launch_mode: 'ranking' | 'multi';
   };
   storage: {
-    prefix: string;
+    gameKey: string;
   };
 }
 
@@ -19,6 +19,6 @@ export const config: Config = {
      * セーブデータ用 localStorage の key につけるプレフィックス
      * 同一ドメインのサイトで他のゲームのセーブデータと混ざらないようにするために使用します
      */
-    prefix: 'game',
+    gameKey: 'game',
   },
 };

@@ -1,27 +1,17 @@
-import { clone, type Encoder, type IStorage, isLocalPlay, MockStorage, WebStorage } from '$libs';
+import { type IStorage, MockStorage } from '$libs';
 import type { SaveData } from '../entities';
 
 /**
  * ローカルプレイ用のセーブ管理マネージャー
  */
-class SaveManagerClass {
-  private _storage: IStorage<SaveData> = new MockStorage();
-  private _data: SaveData = {};
+export class SaveManager {
+  private _storage: IStorage<SaveData>;
+  private _data: SaveData;
+  private _lazySaveTimer = 0;
 
-  /**
-   * 初期化
-   * @param gameKey
-   * @param initialData
-   * @param customEncoder
-   */
-  setup(gameKey: string, initialData: SaveData, customEncoder?: Encoder<SaveData>) {
-    this._data = clone(initialData);
-
-    if (isLocalPlay()) {
-      this._storage = new WebStorage(gameKey, { customEncoder });
-    } else {
-      this._storage = new MockStorage();
-    }
+  constructor(storage?: IStorage<SaveData>) {
+    this._storage = storage || new MockStorage();
+    this._data = {};
   }
 
   /**
@@ -41,8 +31,13 @@ class SaveManagerClass {
   /**
    * ゲームのセーブデータの値をインポート
    */
-  importData(saveData: SaveData) {
-    this._data = saveData;
+  importData(saveData: Partial<SaveData>) {
+    try {
+      this._data = saveData;
+    } catch (e) {
+      console.error('Failed to import save data:', e);
+      this._data = {};
+    }
   }
 
   /**
@@ -51,6 +46,25 @@ class SaveManagerClass {
   save(): Promise<void> {
     return this._storage.save(this._data);
   }
-}
 
-export const SaveManager = new SaveManagerClass();
+  /**
+   * 遅延セーブを実行（非同期）
+   */
+  lazySave() {
+    // Node 環境では即座にセーブを実行
+    if (typeof window === 'undefined') {
+      this.save();
+      return;
+    }
+
+    if (this._lazySaveTimer) {
+      clearTimeout(this._lazySaveTimer);
+      this._lazySaveTimer = 0;
+    }
+
+    this._lazySaveTimer = window.setTimeout(() => {
+      this._lazySaveTimer = 0;
+      this.save();
+    }, 2500);
+  }
+}

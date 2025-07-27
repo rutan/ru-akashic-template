@@ -1,95 +1,62 @@
-import { isDevelopment, isLocalPlay, isSandbox } from '$libs';
-import { SaveManager } from '$share';
+import { isDevelopment, isLocalPlay } from '$libs';
+import { detectStorage, getManagers, initManagers } from '$share';
 import { config } from './config';
 import { initializePlugin } from './initializePlugin';
-import { type LaunchParameter, launch } from './launch';
+import { launch } from './launch';
 
 export function main(params: g.GameMainParameterObject) {
-  // 初期化
-  SaveManager.setup(config.storage.prefix, {});
-  initializePlugin();
-  setupSandbox();
+  // マネージャーを初期化する
+  g.game.vars.managers = initManagers({
+    storage: detectStorage({
+      gameKey: config.storage.gameKey,
+    }),
+  });
 
-  // 起動メッセージを受け取るためのシーンを作成する
+  // 初期化
+  initializePlugin();
+
+  // ロードシーンの差し替えをする場合はここで定義
+  // g.game.loadingScene = new MyCustomLoadingScene({
+  //   // explicitEnd: true,
+  //   game: g.game,
+  // });
+
+  // 起動環境ごとの初期化処理を行う
+  if (isLocalPlay()) {
+    setupLocalPlay().then(() => {
+      startLaunchScene(params);
+    });
+  } else {
+    // それ以外の環境（＝ニコ生）では個別セットアップなし
+    startLaunchScene(params);
+  }
+}
+
+/**
+ * 起動メッセージを受け取るシーンの起動
+ */
+function startLaunchScene(params: g.GameMainParameterObject) {
   const scene = new g.Scene({ game: g.game });
   scene.onMessage.add((msg: g.MessageEvent) => {
     if (!msg.data) return;
     if (msg.data.type !== 'start') return;
     if (isDevelopment()) console.log(params, msg.data.parameters);
 
-    if (isLocalPlay()) {
-      setupLocalPlay({ gameParams: params, launchParams: msg.data.parameters });
-    } else {
-      launch({ gameParams: params, launchParams: msg.data.parameters });
-    }
+    launch({ gameParams: params, launchParams: msg.data.parameters });
   });
   g.game.pushScene(scene);
 }
 
-/**
- * ローカルプレイ用の初期化処理
- * セーブデータの読み込みを行う
- */
-function setupLocalPlay({
-  gameParams,
-  launchParams,
-}: {
-  gameParams: g.GameMainParameterObject;
-  launchParams: LaunchParameter;
-}) {
-  const SAVE_LOAD_EVENT_NAME = '__setupLocalPlay__';
+// ローカル向けの初期化処理
+async function setupLocalPlay() {
+  const { SaveManager } = getManagers();
 
-  const saveLoadScene = new g.Scene({ game: g.game, tickGenerationMode: 'manual' });
-  saveLoadScene.onMessage.add((msg: g.MessageEvent) => {
-    if (!msg.data) return;
-    if (msg.data.type !== SAVE_LOAD_EVENT_NAME) return;
-    SaveManager.importData(msg.data.saveData);
-    launch({ gameParams, launchParams });
-  });
+  // 環境に応じて非同期の初期化処理が必要な場合はここで行う
+  const [saveData] = await Promise.all([SaveManager.storage.load()]);
 
-  saveLoadScene.onLoad.add(() => {
-    SaveManager.storage.load().then((saveData) => {
-      g.game.raiseTick([
-        new g.MessageEvent({
-          type: SAVE_LOAD_EVENT_NAME,
-          saveData,
-        }),
-      ]);
-    });
-  });
+  if (isDevelopment()) {
+    console.log('[saveData]', saveData);
+  }
 
-  g.game.pushScene(saveLoadScene);
-}
-
-/**
- * akashic-sandbox の設定
- * 主にスマートフォンからのデバッグのための設定を仕込む
- * akashic-sandbox 以外の環境ではスキップする
- */
-function setupSandbox() {
-  if (!isSandbox()) return;
-
-  const container = document.getElementById('container');
-  if (!container) return;
-
-  // viewportの設定
-  const meta = document.createElement('meta');
-  meta.name = 'viewport';
-  meta.content = 'width=device-width,initial-scale=1';
-  document.querySelector('head')?.append(meta);
-
-  // resize設定
-  container.style.position = 'absolute';
-  const resizeFunc = () => {
-    const rate = Math.min(window.screen.width / g.game.width, 1);
-    container.style.transform = `scale(${rate})`;
-    container.style.transformOrigin = 'left top';
-    if (rate < 1.0) {
-      container.style.top = '30px';
-    } else {
-      container.style.top = '0';
-    }
-  };
-  resizeFunc();
-  window.addEventListener('resize', resizeFunc);
+  SaveManager.importData(saveData ?? {});
 }

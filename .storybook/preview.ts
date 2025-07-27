@@ -2,6 +2,7 @@ import * as AE from '@akashic/akashic-engine-standalone';
 import type { Preview } from '@storybook/html';
 import gameJson from '../game/game.json';
 import { initializePlugin } from '../src/initializePlugin';
+import { initManagers } from '../src/modules/_share/functions/initManagers';
 
 // グローバルで初期化状態を管理
 let _akashicInitialized = false;
@@ -34,6 +35,8 @@ const _akashicReady = new Promise<void>((resolve) => {
     mainFunc(g: any) {
       window.g = g;
 
+      const managers = initManagers();
+      g.game.vars.managers = managers;
       g.game.vars.gameState = {
         score: 0,
       };

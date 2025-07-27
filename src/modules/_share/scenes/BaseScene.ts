@@ -38,27 +38,29 @@ export class BaseScene extends g.Scene {
    * アセット読み込み完了時に実行される処理
    * 継承先で定義する
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   create() {}
 
   /**
    * アセット読み込み完了後の1フレーム目に実行される処理
    * 継承先で定義する
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   start() {}
 
   /**
    * 毎フレーム実行される処理
    * 継承先で定義する
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   updateFrame() {}
+
+  /**
+   * 終了処理
+   * 継承先で定義する
+   */
+  terminate() {}
 
   /**
    * メッセージイベントの受け取り
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   registerHandleMessage(_message: g.MessageEvent) {}
 
   /**
