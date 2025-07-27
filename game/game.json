@@ -4,6 +4,16 @@
 	"fps": 60,
 	"main": "./script/main.js",
 	"assets": {
+		"bundle": {
+			"type": "script",
+			"path": "script/bundle.js",
+			"global": true
+		},
+		"main": {
+			"type": "script",
+			"path": "script/main.js",
+			"global": true
+		},
 		"assets/textures/sample1.png": {
 			"type": "image",
 			"path": "assets/textures/sample1.png",
@@ -15,16 +25,6 @@
 			"path": "assets/textures/sample2.png",
 			"width": 132,
 			"height": 264
-		},
-		"main": {
-			"type": "script",
-			"path": "script/main.js",
-			"global": true
-		},
-		"bundle": {
-			"type": "script",
-			"path": "script/bundle.js",
-			"global": true
 		}
 	},
 	"environment": {
