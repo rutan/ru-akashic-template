@@ -37,7 +37,11 @@ async function buildForWeb(source: string, staticDir: string, distDir: string) {
   const staticDir = path.resolve('.', 'static');
   const distDir = path.resolve('.', 'tmp', '_build');
 
-  await rm(distDir, { recursive: true });
+  try {
+    await rm(distDir, { recursive: true });
+  } catch {
+    // nothing to do
+  }
   await mkdir(distDir, { recursive: true });
 
   await buildForWeb(source, staticDir, distDir);
