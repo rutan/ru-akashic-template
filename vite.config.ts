@@ -1,6 +1,8 @@
 import { join, resolve } from 'node:path';
 import { defineConfig } from 'vite';
-import { version } from './package.json';
+import packageJson from './package.json' with { type: 'json' };
+
+const { version } = packageJson;
 
 export default defineConfig((_) => {
   const paths = (() => {

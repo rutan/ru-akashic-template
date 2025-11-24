@@ -24,6 +24,9 @@ async function buildForWeb(source: string, staticDir: string, distDir: string) {
     compress: false,
     hashLength: 20,
     autoSendEventName: 'localLaunch',
+    terser: {
+      compress: false,
+    },
   });
 
   await cp(staticDir, distDir, { recursive: true });

@@ -1,7 +1,6 @@
 import { join } from 'node:path';
 import type { StorybookConfig } from '@storybook/html-vite';
-import { mergeConfig, normalizePath } from 'vite';
-import viteConfig from '../vite.config';
+import { mergeConfig, normalizePath, type Plugin } from 'vite';
 
 const dirname = typeof __dirname !== 'undefined' ? __dirname : new URL('.', import.meta.url).pathname;
 
@@ -13,23 +12,9 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ['../game', '../static'],
-  async viteFinal(config, { configType }) {
-    const appConfig = viteConfig({
-      command: 'serve',
-      mode: configType === 'PRODUCTION' ? 'production' : 'development',
-    });
-
-    return mergeConfig(config, {
-      resolve: {
-        alias: {
-          ...(appConfig.resolve?.alias || []),
-        },
-      },
-      define: {
-        ...(appConfig.define || {}),
-      },
+  async viteFinal(baseConfig) {
+    return mergeConfig(baseConfig, {
       plugins: [
-        ...(appConfig.plugins || []),
         // game/assets 以下が更新された場合はフルリロードする
         {
           name: 'asset-reload',
@@ -41,7 +26,7 @@ const config: StorybookConfig = {
               return [];
             }
           },
-        },
+        } satisfies Plugin,
       ],
     });
   },
