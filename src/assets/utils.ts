@@ -15,7 +15,7 @@ export interface AssetInfo {
   frame: Frame;
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: any
+// Akashic Engine のコンストラクター型を受け入れるため any を使用する
 export function createWithAsset<T extends new (args: any) => any, U extends AssetJson>(
   scene: g.Scene,
   entityClass: T,

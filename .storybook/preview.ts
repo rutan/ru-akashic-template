@@ -31,7 +31,7 @@ const _akashicReady = new Promise<void>((resolve) => {
   _disposeAkashic = AE.initialize({
     canvas,
     configuration: gameJson as AE.GameConfiguration,
-    // biome-ignore lint/suspicious/noExplicitAny: AkashicEngineのバージョンによる型の不一致を回避するため
+    // Akashic Engine のバージョンによる型の不一致を回避するため any を使用する
     mainFunc(g: any) {
       window.g = g;
 

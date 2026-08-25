@@ -10,7 +10,6 @@ type Props = g.SpriteParameterObject & {
 const meta = {
   title: 'sample/sprites/SampleSprite',
   render: mount((params) => {
-    action;
     const sprite = new SampleSprite({
       ...params,
       x: g.game.width / 2,

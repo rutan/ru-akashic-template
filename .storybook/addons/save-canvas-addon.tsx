@@ -1,5 +1,5 @@
 import { CameraIcon } from '@storybook/icons';
-// biome-ignore lint/correctness/noUnusedImports: vite-react 入れてないので省略不可
+// JSX の変換に React の import が必要
 import React from 'react';
 import { IconButton } from 'storybook/internal/components';
 import { addons, types, useStorybookApi } from 'storybook/manager-api';

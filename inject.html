@@ -35,7 +35,7 @@
     updateValue();
 
     // タブがアクティブになったときに fontSize を更新（Edge用）
-    document.addEventListener("visibilitychange", () => {
+    document.addEventListener('visibilitychange', () => {
       if (document.visibilityState !== 'visible') return;
 
       // 直ちに更新すると反映されないため、少し待って反映する

@@ -4,7 +4,7 @@
     "module": "esnext",
     "rootDir": ".",
     "lib": ["es5", "dom"],
-    "types": ["@types/node"],
+    "types": ["node"],
     "allowUmdGlobalAccess": true,
     "allowJs": true,
     "esModuleInterop": true,
@@ -15,7 +15,6 @@
     "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true,
-    "baseUrl": "./",
     "paths": {
       "$types": ["./src/types"],
       "$constants": ["./src/constants"],

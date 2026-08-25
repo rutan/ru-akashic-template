@@ -5,6 +5,7 @@
 [Akashic Engine 標準のテンプレート機能](https://github.com/akashic-contents/templates)とは異なり、このリポジトリをまるっとコピーして持っていくタイプです。
 
 ## 特徴
+
 公式のテンプレート（ `typescript-shin-ichiba-ranking` ）との主な違いは以下です。
 
 - Vite での事前 bundle / minify
@@ -20,7 +21,7 @@
 
 ## 必要なもの
 
-- [node.js](https://nodejs.org/)
+- [Node.js](https://nodejs.org/) 24
 
 また、pnpm を利用するため corepack を有効にする必要があります。  
 corepack を有効にしていない場合は、以下のコマンドを実行してください。
@@ -30,6 +31,7 @@ corepack enable pnpm
 ```
 
 ## ディレクトリ構成
+
 ```
 ├ _dist/        … ニコ生などに投稿するzipファイルが出てくる場所
 ├ assets/       … テクスチャ画像置き場（後述）
@@ -48,6 +50,7 @@ corepack enable pnpm
 ## 開発の流れ
 
 ### セットアップ
+
 ```
 # corepackを有効にしていない場合、一度だけ実行する
 $ corepack enable pnpm
@@ -56,6 +59,7 @@ $ pnpm install
 ```
 
 ### 開発中
+
 ```
 $ pnpm run dev
 ```
@@ -66,6 +70,7 @@ akashic sandbox が起動します。
 ランキング対応ゲームを作る場合は、右上のメニューから `Niconico` を選択し、`セッションパラメータを送る（要リロード）` にチェックを付けてリロードすることで、ゲームが始まるようになります。
 
 ### デプロイメント
+
 ```
 # ブラウザプレイ用のビルド（PLiCyなど）
 $ pnpm run build
@@ -80,7 +85,7 @@ $ pnpm run deploy:nicolive
 
 ### lint / formatter について
 
-biome を使っています。
+oxlint / oxfmt を使っています。
 
 ```
 # 自動修正
@@ -109,6 +114,7 @@ src/modules/result   … リザルトシーンのコード
 複数のシーンにまたがって利用するコードは、必ず `src/modules/_share` に設置してください。
 
 ### テクスチャ画像について
+
 free-tex-packer-core を利用した画像アセットをサポートしています。
 
 1. プロジェクトルートにある `assets/` 以下にディレクトリを作成する
@@ -123,19 +129,18 @@ free-tex-packer-core を利用した画像アセットをサポートしてい�
 ```typescript
 import { createWithAsset, assetsSample1 } from './assets';
 
-const sprite =
-  createWithAsset(
-    scene,
-    g.Sprite, // インスタンスを作成するclass（普通は g.Sprite ）
-    assetsSample1, // assets/textures/以下に自動生成されたJSON
-    'ru', // 画像ファイルの名前（拡張子は無し）
-    {
-      // g.Sprite の引数にわたすパラメータ
-      // ただし src などは自動設定されるため不要
-      x: 100,
-      y: 200,
-    }
-  );
+const sprite = createWithAsset(
+  scene,
+  g.Sprite, // インスタンスを作成するclass（普通は g.Sprite ）
+  assetsSample1, // assets/textures/以下に自動生成されたJSON
+  'ru', // 画像ファイルの名前（拡張子は無し）
+  {
+    // g.Sprite の引数にわたすパラメータ
+    // ただし src などは自動設定されるため不要
+    x: 100,
+    y: 200,
+  },
+);
 scene.append(sprite);
 ```
 
@@ -149,9 +154,10 @@ scene.append(sprite);
 $ pnpm run storybook
 ```
 
-ストーリーの書き方はサンプル（ `src/modules/sample/Sample.stories.ts` ）を参考にしてください。
+ストーリーの書き方はサンプル（ `src/modules/sample/sprites/SampleSprite/SampleSprite.stories.ts` ）を参考にしてください。
 
 ### static ディレクトリ
+
 Web 向けビルドに生成される zip ファイルの中に static ディレクトリ内のファイルを含むことができます。ニコ生ゲーム向けビルドには含まれません。
 
 ここには favicon などの Web 公開時に必要となるファイルを設置することを想定しています。
@@ -169,9 +175,9 @@ class MyScene extends g.Scene {
   myFunction() {
     const { SaveManager } = getManagers();
 
-// セーブしたい情報を data に入れる
+    // セーブしたい情報を data に入れる
     SaveManager.data = {
-      highScore: 12345
+      highScore: 12345,
     };
 
     // セーブの実行（非同期）
