@@ -10,29 +10,15 @@ export class WebStorage<T> implements IStorage<T> {
     this._encoder = options?.customEncoder ?? createJsonEncoder<T>();
   }
 
-  load() {
-    try {
-      const item = localStorage.getItem(this._storageKey);
-      if (!item) return Promise.resolve(null);
+  async load(): Promise<T | null> {
+    const item = localStorage.getItem(this._storageKey);
+    if (item === null) return null;
 
-      return this._encoder.decode(item);
-    } catch (err) {
-      console.error(err);
-      return Promise.reject(err);
-    }
+    return this._encoder.decode(item);
   }
 
-  save(data: T): Promise<void> {
-    return new Promise((resolve, reject) => {
-      try {
-        return this._encoder.encode(data).then((encodeData) => {
-          localStorage.setItem(this._storageKey, encodeData);
-          resolve();
-        });
-      } catch (e) {
-        console.error(e);
-        reject(e);
-      }
-    });
+  async save(data: T): Promise<void> {
+    const encodeData = await this._encoder.encode(data);
+    localStorage.setItem(this._storageKey, encodeData);
   }
 }

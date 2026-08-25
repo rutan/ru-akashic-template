@@ -8,6 +8,7 @@ export class SaveManager {
   private _storage: IStorage<SaveData>;
   private _data: SaveData;
   private _lazySaveTimer = 0;
+  private _lazySaveTask: Promise<void> | null = null;
 
   constructor(storage?: IStorage<SaveData>) {
     this._storage = storage || new MockStorage();
@@ -53,7 +54,7 @@ export class SaveManager {
   lazySave() {
     // Node 環境では即座にセーブを実行
     if (typeof window === 'undefined') {
-      this.save();
+      void this._executeLazySave();
       return;
     }
 
@@ -64,7 +65,39 @@ export class SaveManager {
 
     this._lazySaveTimer = window.setTimeout(() => {
       this._lazySaveTimer = 0;
-      this.save();
+      void this._executeLazySave();
     }, 2500);
+  }
+
+  /**
+   * 保留中の遅延セーブを即座に実行し、完了を待つ
+   */
+  flush(): Promise<void> {
+    if (this._lazySaveTimer) {
+      clearTimeout(this._lazySaveTimer);
+      this._lazySaveTimer = 0;
+      return this._executeLazySave();
+    }
+
+    return this._lazySaveTask ?? Promise.resolve();
+  }
+
+  private _executeLazySave(): Promise<void> {
+    const task = Promise.resolve().then(() => this.save());
+    this._lazySaveTask = task;
+
+    void task.catch((e) => {
+      console.error('Failed to save data:', e);
+    });
+    void task.then(
+      () => {
+        if (this._lazySaveTask === task) this._lazySaveTask = null;
+      },
+      () => {
+        if (this._lazySaveTask === task) this._lazySaveTask = null;
+      },
+    );
+
+    return task;
   }
 }

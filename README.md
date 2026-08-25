@@ -172,19 +172,19 @@ Web 向けビルドに生成される zip ファイルの中に static ディレ
 import { getManagers } from '$share';
 
 class MyScene extends g.Scene {
-  myFunction() {
+  async myFunction() {
     const { SaveManager } = getManagers();
 
     // セーブしたい情報を data に入れる
-    SaveManager.data = {
-      highScore: 12345,
-    };
+    SaveManager.data.highScore = 12345;
 
     // セーブの実行（非同期）
-    SaveManager.save();
+    await SaveManager.save();
   }
 }
 ```
+
+連続して値が更新される場合は `SaveManager.lazySave()` でセーブを遅延実行できます。保留中のセーブをただちに実行して完了を待つ場合は `await SaveManager.flush()` を使用してください。
 
 PLiCyなどのローカルプレイの場合は localStorage が使用されます。ニコ生上でのプレイ時にはダミーのモックストレージが利用されるため、実際にはセーブは行われません。
 

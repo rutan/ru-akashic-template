@@ -52,7 +52,13 @@ async function setupLocalPlay() {
   const { SaveManager } = getManagers();
 
   // 環境に応じて非同期の初期化処理が必要な場合はここで行う
-  const [saveData] = await Promise.all([SaveManager.storage.load()]);
+  let saveData = null;
+  try {
+    saveData = await SaveManager.storage.load();
+  } catch (e) {
+    // localStorage が利用できない環境でもゲームの起動は継続する
+    console.error('Failed to load save data:', e);
+  }
 
   if (isDevelopment()) {
     console.log('[saveData]', saveData);
