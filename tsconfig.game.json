@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["es5", "dom"],
+    "types": [],
+    "paths": {
+      "$types": ["./src/types"],
+      "$constants": ["./src/constants"],
+      "$assets": ["./src/assets"],
+      "$libs": ["./src/libs"],
+      "$data": ["./src/data"],
+      "$share": ["./src/modules/_share"],
+      "$storybook": ["./src/_storybook"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.stories.ts"],
+  "files": ["node_modules/@akashic/akashic-engine/index.runtime.d.ts"]
+}

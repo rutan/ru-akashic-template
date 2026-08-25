@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.game.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM"],
+    "types": ["node", "react"]
+  },
+  "include": [".storybook/**/*", "src/**/*.stories.ts"],
+  "exclude": []
+}

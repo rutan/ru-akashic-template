@@ -1,30 +1,8 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "rootDir": ".",
-    "lib": ["es5", "dom"],
-    "types": ["node"],
-    "allowUmdGlobalAccess": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "moduleResolution": "bundler",
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "paths": {
-      "$types": ["./src/types"],
-      "$constants": ["./src/constants"],
-      "$assets": ["./src/assets"],
-      "$libs": ["./src/libs"],
-      "$data": ["./src/data"],
-      "$share": ["./src/modules/_share"],
-      "$storybook": ["./src/_storybook"]
-    }
-  },
-  "include": ["src/**/*"],
-  "files": ["node_modules/@akashic/akashic-engine/index.runtime.d.ts"]
+  "files": [],
+  "references": [
+    { "path": "tsconfig.game.json" },
+    { "path": "tsconfig.storybook.json" },
+    { "path": "tsconfig.tools.json" }
+  ]
 }
