@@ -1,5 +1,5 @@
 import { ConsoleLogger } from '@akashic/akashic-cli-commons';
-import { scanAsset } from '@akashic/akashic-cli-scan/lib/scanAsset';
+import { scanAsset } from '@akashic/akashic-cli-scan/lib/scanAsset.js';
 import { watch } from 'chokidar';
 
 class ScanLogger extends ConsoleLogger {

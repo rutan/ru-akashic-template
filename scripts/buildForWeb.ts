@@ -1,7 +1,7 @@
 import { cp, mkdir, rm } from 'node:fs/promises';
 import * as path from 'node:path';
 import { promiseExportHTML } from '@akashic/akashic-cli-export/lib/html/exportHTML.js';
-import { CustomLogger } from './modules/CustomLogger';
+import { CustomLogger } from './modules/CustomLogger.ts';
 
 const INJECT_HTML_NAME = 'inject.html';
 

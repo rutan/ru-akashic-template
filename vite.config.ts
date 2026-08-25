@@ -4,7 +4,7 @@ import packageJson from './package.json' with { type: 'json' };
 
 const { version } = packageJson;
 
-export default defineConfig((_) => {
+export default defineConfig(({ mode }) => {
   const paths = (() => {
     const root = new URL('.', import.meta.url).pathname;
     return {
@@ -16,7 +16,7 @@ export default defineConfig((_) => {
   })();
 
   const defineList = {
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    'process.env.NODE_ENV': JSON.stringify(mode),
     'process.env.VERSION': JSON.stringify(version),
   };
 

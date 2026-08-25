@@ -1,10 +1,9 @@
-import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { globSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, join, relative } from 'node:path';
 import { packAsync } from 'free-tex-packer-core';
-import { glob } from 'glob';
 
 const root = join(new URL('.', import.meta.url).pathname, '..');
-const assetsDir = glob.sync(join(root, 'assets', '*')).sort();
+const assetsDir = globSync(join(root, 'assets', '*')).sort();
 const pngDir = join(root, 'game', 'assets', 'textures');
 const jsonDir = join(root, 'src', 'assets', 'textures');
 
@@ -36,8 +35,7 @@ const exporter = {
       if (!statSync(dir).isDirectory()) return null;
 
       const assetName = basename(dir);
-      const images = glob
-        .sync(join(dir, '**', '*.{png,jpg,jpeg}'))
+      const images = globSync(join(dir, '**', '*.{png,jpg,jpeg}'))
         .sort()
         .map((path) => {
           return {

@@ -1,8 +1,8 @@
 import { mkdir } from 'node:fs/promises';
 import * as path from 'node:path';
 import { promiseExportZip } from '@akashic/akashic-cli-export/lib/zip/exportZip.js';
-import * as packageJSON from '../package.json';
-import { CustomLogger } from './modules/CustomLogger';
+import packageJSON from '../package.json' with { type: 'json' };
+import { CustomLogger } from './modules/CustomLogger.ts';
 
 async function archiveForNicoLive(source: string, dest: string) {
   const logger = new CustomLogger();
